@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const SaveAssetsJson = require('assets-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 module.exports = {
   devtool: 'source-map',
@@ -44,6 +45,7 @@ module.exports = {
       verbose: true,
       dry: false
     }),
+    new ProgressBarPlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(true),
     new UglifyJsPlugin(),
     new SaveAssetsJson({
@@ -68,11 +70,22 @@ module.exports = {
         use: ['file-loader?name=[path][name].[ext]']
       },
       {
+        test: /\.(png|jpg|gif)$/i,
+        use:[
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 12288
+            }
+          }
+        ]
+      },
+      {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: 'babel-loader',
         include: path.join(__dirname, 'assets')
-      }
+      },
     ],
 
     noParse: /\.min\.js/

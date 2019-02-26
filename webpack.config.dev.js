@@ -53,15 +53,22 @@ module.exports = {
         use: [{ loader: 'file-loader?name=[path][name].[ext]' }]
       },
       {
+        test: /\.(png|jpg|gif)$/i,
+        use:[
+          {
+            loader: 'url-loader',
+            options: {
+              limit: 12288
+            }
+          }
+        ]
+      },
+      {
         test: /\.(jsx|js)?$/,
         exclude: /node_modules/,
         use: [{ loader: 'babel-loader' }],
         include: path.join(__dirname, 'assets')
       },
-      {
-        test: /\.jpg$/,
-        use:[{loader: "url-loader?limit=10000&mimetype=image/jpg"}]
-      }
     ],
 
     noParse: /\.min\.js/
