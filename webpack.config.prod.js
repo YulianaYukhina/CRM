@@ -17,7 +17,7 @@ module.exports = {
   // Report the first error as a hard error instead of tolerating it
   bail: true,
 
-  entry: ['babel-polyfill', './assets/main.jsx'],
+  entry: ['@babel/polyfill', './assets/main.jsx'],
 
   output: {
     path: path.join(__dirname, '/public/dist/'),
@@ -49,7 +49,7 @@ module.exports = {
     new webpack.optimize.OccurrenceOrderPlugin(true),
     new UglifyJsPlugin(),
     new SaveAssetsJson({
-      path: process.cwd(),
+      path: path.join(__dirname, '/public/dist/'),
       filename: 'assets.json'
     }),
     new webpack.DefinePlugin({
@@ -81,9 +81,9 @@ module.exports = {
         ]
       },
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: ['babel-loader'],
         include: path.join(__dirname, 'assets')
       },
     ],

@@ -1,19 +1,7 @@
 import React from 'react'
 import { Container } from './styled'
-type InputProps = {
-    type: string,
-    placeholder: string,
-    id: string,
-    value: string,
-    isRequired?: boolean,
-    error?: boolean,
-    onChange?: Function,
-    tabIndex: string,
-    middlewareValidator?: Function,
-    className: string,
-}
 
-class Input extends React.Component<InputProps> {
+class Input extends React.Component {
     state = { isFocus: false, value: '' }
 
     Focus = event => {
@@ -30,7 +18,7 @@ class Input extends React.Component<InputProps> {
             this.props.onChange(event);
         }
     }
-   
+
     render() {
         return (
             <Container

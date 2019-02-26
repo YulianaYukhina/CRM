@@ -7,9 +7,9 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
 
   entry: [
-    'babel-polyfill',
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/dev-server',
+    '@babel/polyfill',
+    // 'webpack-dev-server/client?http://localhost:8080',
+    // 'webpack/hot/dev-server',
     './assets/main.jsx'
   ],
 
@@ -64,9 +64,9 @@ module.exports = {
         ]
       },
       {
-        test: /\.(jsx|js)?$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
-        use: [{ loader: 'babel-loader' }],
+        use: ['babel-loader'],
         include: path.join(__dirname, 'assets')
       },
     ],

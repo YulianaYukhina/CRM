@@ -11,7 +11,7 @@ var server = new WebpackDevServer(webpack(config), {
   noInfo: true,
   historyApiFallback: true,
   headers: { 'Access-Control-Allow-Origin': `http://localhost:${BACKEND_PORT}` },
-}).listen(FRONTEND_PORT, 'localhost', function (err, result) {
+}).listen(FRONTEND_PORT, 'localhost', (err, result) => {
   if (err) console.log(err);
 
   console.log('===================================='.magenta);

@@ -9,7 +9,12 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.bootstrap.html
  */
 
-module.exports.bootstrap = function(cb) {
+module.exports.bootstrap = async function(cb) {
+
+
+  await User.createEach([
+    { login: 'user', role: 'user', password: await sails.helpers.passwords.hashPassword('user') },
+  ]);
 
   // It's very important to trigger this callback method when you are finished
   // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
