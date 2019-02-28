@@ -5,7 +5,8 @@
   "description": "a Sails application",
   "keywords": [],
   "scripts": {
-    "start": "cross-env NODE_ENV=development nf start --wrap",
+    "start": "cross-env NODE_ENV=development nf -j procfile.start start --wrap",
+    "startDebug": "cross-env NODE_ENV=development nf start --wrap",
     "test": "npm run lint && npm run custom-tests && echo 'Done.'",
     "lint": "eslint . --max-warnings=0 --report-unused-disable-directives && echo '✔  Your .js files look good.'",
     "custom-tests": "echo \"(No other custom tests yet.)\" && echo"
