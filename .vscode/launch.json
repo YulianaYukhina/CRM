@@ -18,7 +18,7 @@
       "console": "integratedTerminal",
       "runtimeArgs": [
         "run",
-        "start"
+        "startDebug"
       ],
       "timeout": 30000,
       "port": 9229
