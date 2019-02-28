@@ -20,6 +20,11 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/test': 'Test.Test',
+  'GET /testTest': 'Test.TestTest',
+  'GET /testUser': 'Test.TestUser',
+  'GET /testAdmin': 'Test.TestAdmin',
+  'POST /user/login': 'Auth.Login',
+  'GET /user/logout': 'Auth.Logout',
   'GET /*': {
     controller: 'AppController',
     action: 'index',

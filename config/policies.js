@@ -8,6 +8,9 @@
  * https://sailsjs.com/docs/concepts/policies
  */
 
+let isUser = ['hasToken', 'isUser'];
+let isAdmin = ['hasToken', 'isAdmin'];
+
 module.exports.policies = {
 
   /***************************************************************************
@@ -18,5 +21,10 @@ module.exports.policies = {
   ***************************************************************************/
 
   '*': true,
+  TestController: {
+    TestUser: isUser,
+    TestAdmin: isAdmin,
+    TestTest: 'hasToken'
+  }
 
 };

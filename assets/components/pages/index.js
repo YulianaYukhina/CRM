@@ -16,7 +16,7 @@ import UserCabinet from './UserCabinet'
 import { Container } from './styled'
 
 const Pages = () => {
-  const isAdmin = localStorage.getItem('role') == 'Admin'
+  const isAdmin = localStorage.getItem('role') == 'admin'
   return (
     <Router>
       <Container>

@@ -16,15 +16,12 @@ module.exports.bootstrap = async function() {
   // For example:
   // ```
   // // Set up fake development data (or if we already have some, avast)
-  // if (await User.count() > 0) {
-  //   return;
-  // }
-  //
-  // await User.createEach([
-  //   { emailAddress: 'ry@example.com', fullName: 'Ryan Dahl', },
-  //   { emailAddress: 'rachael@example.com', fullName: 'Rachael Shaw', },
-  //   // etc.
-  // ]);
+  if (await User.count() > 0) {
+    return;
+  }else{
+    User.CreateUser('User', 'P@ssw0rd','user');
+    User.CreateUser('Admin', 'P@ssw0rd','admin');
+  }
   // ```
 
 };
