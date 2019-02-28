@@ -1,58 +1,26 @@
-# Sails + React + Webpack boilerplate
+# test
 
-A boilerplate for [Sails](http://sailsjs.org) apps with a [React](https://facebook.github.io/react/) frontend.
-
-## Includes
-
-* [Sails](http://sailsjs.org)
-* [React](https://facebook.github.io/react/)
-* [Babel with ES2015](https://babeljs.io)
-* [React Router](https://github.com/reactjs/react-router)
-* [sails-hook-autoreload](https://github.com/sgress454/sails-hook-autoreload)
-* [Sass](https://github.com/jtangelder/sass-loader)
-* [Autoprefixer](https://github.com/passy/autoprefixer-loader)
-* [React Hot Loader](https://github.com/gaearon/react-hot-loader)
+a [Sails v1](https://sailsjs.com) application
 
 
-___
+### Links
 
-### Clone
++ [Sails framework documentation](https://sailsjs.com/get-started)
++ [Version notes / upgrading](https://sailsjs.com/documentation/upgrading)
++ [Deployment tips](https://sailsjs.com/documentation/concepts/deployment)
++ [Community support options](https://sailsjs.com/support)
++ [Professional / enterprise options](https://sailsjs.com/enterprise)
 
-```shell
-git clone https://github.com/markmur/sails-react-webpack.git
-cd sails-react-webpack
-npm install
-```
 
-___
+### Version info
 
-### Run (development)
+This app was originally generated on Thu Feb 28 2019 15:06:40 GMT+0300 (GMT+03:00) using Sails v1.1.0.
 
-There are multiple ways to run the project in development as sails and webpack-dev-server run independently. The easiest way is to use [Foreman](https://github.com/theforeman/foreman) (`npm install -g foreman`) and run:
+<!-- Internally, Sails used [`sails-generate@1.16.6`](https://github.com/balderdashy/sails-generate/tree/v1.16.6/lib/core-generators/new). -->
 
-```shell
-nf start
-```
 
-This will start all processes listed in the `Procfile`.
 
-The alternative is to manually run each process in separate terminal windows.
+<!--
+Note:  Generators are usually run using the globally-installed `sails` CLI (command-line interface).  This CLI version is _environment-specific_ rather than app-specific, thus over time, as a project's dependencies are upgraded or the project is worked on by different developers on different computers using different versions of Node.js, the Sails dependency in its package.json file may differ from the globally-installed Sails CLI release it was originally generated with.  (Be sure to always check out the relevant [upgrading guides](https://sailsjs.com/upgrading) before upgrading the version of Sails used by your app.  If you're stuck, [get help here](https://sailsjs.com/support).)
+-->
 
-To view your app, go to `http://localhost:3000` in your browser.
-___
-
-### Run (Production)
-
-Wepack builds the bundle files on `postinstall` and sails is lifted the same way it's always lifted in production:
-
-```shell
-sails lift --prod
-```
-
-You can also manually run webpack with `npm run dist`.
-
-___
-
-### Generate Components
-
-Use [react-component-gen](https://github.com/markmur/react-component-gen) to generate new components on the fly.

@@ -1,14 +1,16 @@
 module.exports = {
   attributes: {
-    login: { type: 'string', required: true },
-    password: {
+    login : {
       type: 'string',
-      required: true,
-      protect: true,
+      required: true
     },
-    role: { type: 'string', required: true },
-  },
-  test: () => {
-    return 'test function is worked!!';
+    password : {
+      type: 'string',
+      required: true
+    },
+    role : {
+      type: 'string',
+      required: true
+    }
   }
 };
