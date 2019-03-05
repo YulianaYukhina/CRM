@@ -42,8 +42,8 @@
     "_": true,
 
     // Models:
-    "User": true
-
+    "User": true,
+    "Manager": true
     // …and any others.
     // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   },

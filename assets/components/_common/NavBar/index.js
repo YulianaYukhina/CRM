@@ -1,5 +1,5 @@
 ﻿import React from 'react'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { apiLogout } from '../../../api/user'
 import { Container } from './styled'
 
@@ -16,9 +16,10 @@ class NavBar extends React.Component {
       apiLogout();
     }
     else {
-      this.setState(prevState => ({
-        openModalWindow: { ...prevState.openModalWindow, [key]: val, }
-      }))
+      // this.setState(prevState => ({
+      //   openModalWindow: { ...prevState.openModalWindow, [key]: val, }
+      // }))
+      console.log(key);
     }
   }
   render() {
@@ -27,41 +28,33 @@ class NavBar extends React.Component {
     if (isAdmin)
       return (
         <Container>
-          {
-            <button onClick={() => apiLogout()}>Выход</button>
-          // <Navbar fixedTop onSelect={this.click}>
-          //   <Nav>
-          //     {
-          //   //   <NavItem eventKey={'StudentCreate'} >
-          //   //     Добавить студента
-          //   // </NavItem>
-          //   //   {this.state.openModalWindow.StudentCreate && (
-          //   //     <CreateStudent show={this.state.openModalWindow.StudentCreate} onHide={() => this.click('StudentCreate')} />
-          //   //   )}
-          //     }
-          //     <NavItem eventKey={'Exit'} style={{ position: 'absolute', right: '10px' }} >
-          //       Выход
-          //     </NavItem>
-          //   </Nav>
-          // </Navbar>
-          }
+          <Navbar bg="light" expand="lg" onSelect={this.click}>
+            <Nav className="mr-auto">
+              <Nav.Link eventKey='Home'>Home</Nav.Link>
+              <Nav.Link eventKey={'Exit'} style={{ position: 'absolute', right: '20px' }}>Exit</Nav.Link>
+              <NavDropdown title="Dropdown">
+                <NavDropdown.Item eventKey="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item eventKey="#action/3.2">Another action</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar>
         </Container>
       );
     else
       return (
         <Container>
-          {
-            <button onClick={() => apiLogout()}>Выход</button>
-          // <Navbar fixedTop onSelect={this.click}>
-          //   <Nav>
-          //     <NavItem eventKey={'Exit'} style={{ position: 'absolute', right: '10px' }} >
-          //       Выход
-          //     </NavItem>
-          //   </Nav>
-          // </Navbar>
-          }
+          <Navbar bg="light" expand="lg" onSelect={this.click}>
+            <Nav className="mr-auto">
+              <Nav.Link eventKey='Home'>Home</Nav.Link>
+              <Nav.Link eventKey={'Exit'} style={{ position: 'absolute', right: '20px' }}>Exit</Nav.Link>
+              <NavDropdown title="Dropdown">
+                <NavDropdown.Item eventKey="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item eventKey="#action/3.2">Another action</NavDropdown.Item>
+              </NavDropdown>
+            </Nav>
+          </Navbar>
         </Container>
-        );
+      );
   }
 }
 
