@@ -25,6 +25,7 @@ module.exports.policies = {
     TestUser: isUser,
     TestAdmin: isAdmin,
     TestTest: 'hasToken'
-  }
+  },
+  ManagerController: isAdmin
 
 };

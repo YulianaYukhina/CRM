@@ -22,7 +22,7 @@ const customStyles = {
   },
 }
 
-Modal.setAppElement('#root')
+Modal.setAppElement('#app')
 
 class ModalDialog extends React.Component {
 

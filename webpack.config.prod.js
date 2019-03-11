@@ -62,8 +62,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap']
+        test: /\.(scss|css)$/,
+        use: [
+          { loader: 'style-loader' },
+          { loader: 'css-loader?sourceMap' },
+          { loader: 'sass-loader?sourceMap' }
+        ]
       },
       {
         test: /\.(ttf|eot|svg|woff)(\?[a-z0-9]+)?$/,
@@ -71,7 +75,7 @@ module.exports = {
       },
       {
         test: /\.(png|jpg|gif)$/i,
-        use:[
+        use: [
           {
             loader: 'url-loader',
             options: {
