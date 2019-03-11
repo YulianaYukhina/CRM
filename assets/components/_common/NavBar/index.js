@@ -3,6 +3,8 @@ import { Navbar, Nav, NavDropdown } from 'react-bootstrap'
 import { apiLogout } from '../../../api/user'
 import { Container } from './styled'
 
+import CreateManager from '../dialogs/CreateManager'
+
 
 class NavBar extends React.Component {
 
@@ -16,21 +18,24 @@ class NavBar extends React.Component {
       apiLogout();
     }
     else {
-      // this.setState(prevState => ({
-      //   openModalWindow: { ...prevState.openModalWindow, [key]: val, }
-      // }))
+      this.setState(prevState => ({
+        openModalWindow: { ...prevState.openModalWindow, [key]: val, }
+      }))
       console.log(key);
     }
   }
   render() {
 
-    const isAdmin = localStorage.getItem('role') == 'Admin'
+    const isAdmin = localStorage.getItem('role') == 'admin'
     if (isAdmin)
       return (
         <Container>
           <Navbar bg="light" expand="lg" onSelect={this.click}>
             <Nav className="mr-auto">
-              <Nav.Link eventKey='Home'>Home</Nav.Link>
+              <Nav.Link eventKey='CreateManager'>Добавить менеджера</Nav.Link>
+              {this.state.openModalWindow.CreateManager && (
+                <CreateManager show={this.state.openModalWindow.CreateManager} onHide={() => this.click('CreateManager')} />
+              )}
               <Nav.Link eventKey={'Exit'} style={{ position: 'absolute', right: '20px' }}>Exit</Nav.Link>
               <NavDropdown title="Dropdown">
                 <NavDropdown.Item eventKey="#action/3.1">Action</NavDropdown.Item>

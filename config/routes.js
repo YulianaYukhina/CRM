@@ -25,6 +25,8 @@ module.exports.routes = {
   'GET /testAdmin': 'Test.TestAdmin',
   'POST /user/login': 'Auth.Login',
   'GET /user/logout': 'Auth.Logout',
+  'POST /manager/save': 'Manager.Save',
+  'GET /manager/checkExistLogin': 'Manager.CheckExistLogin',
   'GET /*': {
     controller: 'AppController',
     action: 'index',
