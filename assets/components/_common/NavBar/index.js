@@ -4,6 +4,7 @@ import { apiLogout } from '../../../api/user'
 import { Container } from './styled'
 
 import CreateManager from '../dialogs/CreateManager'
+import CreateProject from '../dialogs/CreateProject'
 
 
 class NavBar extends React.Component {
@@ -35,6 +36,10 @@ class NavBar extends React.Component {
               <Nav.Link eventKey='CreateManager'>Добавить менеджера</Nav.Link>
               {this.state.openModalWindow.CreateManager && (
                 <CreateManager show={this.state.openModalWindow.CreateManager} onHide={() => this.click('CreateManager')} />
+              )}
+              <Nav.Link eventKey='CreateProject'>Добавить проект</Nav.Link>
+              {this.state.openModalWindow.CreateProject && (
+                <CreateProject show={this.state.openModalWindow.CreateProject} onHide={() => this.click('CreateProject')} />
               )}
               <Nav.Link eventKey={'Exit'} style={{ position: 'absolute', right: '20px' }}>Exit</Nav.Link>
               <NavDropdown title="Dropdown">

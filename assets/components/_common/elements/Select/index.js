@@ -26,7 +26,7 @@ class Select extends React.Component {
                     <option disabled selected></option>
                     {this.props.data && this.props.data.map(ob => {
                         return (
-                            <option value={ob[value]}>{ob[text]}</option>
+                            <option value={ob[value]}>{ob[text] || ob.getText()}</option>
                         )
                     })}
                 </select>
@@ -59,6 +59,7 @@ Select.props = {
 Select.defaultProps = {
     key: 'id',
     value: 'val',
+    text: 'text',
     isRequired: false,
     error: false,
 }
