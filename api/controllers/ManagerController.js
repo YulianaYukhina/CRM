@@ -37,6 +37,9 @@ module.exports = {
       }
     }
     res.badRequest('произошла ошибка при создании менеджера');
-
+  },
+  GetManagersList: async (req, res) => {
+    var managers = await Manager.find();
+    res.ok(managers);
   }
 };

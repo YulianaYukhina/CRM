@@ -6,10 +6,13 @@ import Input from '../../../elements/Input'
 import Select from '../../../elements/Select'
 import { FlexBox, FlexRow } from '../../../elements/StyleDialogs/styled'
 
+import { apiGetManagerList } from '../../../../../api/manager'
+
 class ProjectInfo extends React.Component {
   state = {
     fieldValue: {}, // значение полей формы
     error: {},
+    managers: []
   };
 
   changeInputHandler = event => {
@@ -19,6 +22,13 @@ class ProjectInfo extends React.Component {
       fieldValue: { ...prevState.fieldValue, [name]: val, },
       error: { ...prevState.error, [name]: false },
     }));
+  }
+
+  componentDidMount() {
+    apiGetManagerList().then(res => {
+      res.data && res.data.map(ob => ob.initials = ob.surname + ' ' + ob.name.charAt(0) + '. ' + ob.patronymic.charAt(0) + '.')
+      this.setState({ managers: res.data })
+    });
   }
 
   render() {
@@ -35,20 +45,21 @@ class ProjectInfo extends React.Component {
       },
     ]
 
-    var managers = [ // TODO тянуть с бека
-      {
-        id: '1',
-        val: 'test',
-        text: 'Test T. T.',
-        getText: () => 'Test T. R.'
-      },
-      {
-        id: '2',
-        val: 'admin',
-        text: 'Иванов И. TEXT.',
-        getText: () => 'Иванов И. T.'
-      },
-    ]
+    var { managers } = this.state;
+    // [ // TODO тянуть с бека
+    //   {
+    //     id: '1',
+    //     val: 'test',
+    //     text: 'Test T. T.',
+    //     getText: () => 'Test T. R.'
+    //   },
+    //   {
+    //     id: '2',
+    //     val: 'admin',
+    //     text: 'Иванов И. TEXT.',
+    //     getText: () => 'Иванов И. T.'
+    //   },
+    // ]
     return (
       <FlexBox>
         <FlexRow className="flex-row">
@@ -83,7 +94,6 @@ class ProjectInfo extends React.Component {
           </div>
           <div>
             <div className="address-text">
-              {/* <label>Адрес</label> */}
               <textarea
                 id="address"
                 placeholder="Адрес, например: г. Москва ул. Чехода д. 23"
@@ -100,12 +110,13 @@ class ProjectInfo extends React.Component {
         </FlexRow>
         <FlexRow>
           <div>
-          <Select
+            <Select
               id="manager"
               isRequired={true}
               placeholder="Менеджер"
               data={managers}
-              text="func()"
+              value="id"
+              text="initials"
               selectedValue={this.state.fieldValue.manager}
               onChange={this.changeInputHandler}
               error={this.state.error.manager}
