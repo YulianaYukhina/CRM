@@ -8,6 +8,9 @@ import { FlexBox, FlexRow } from '../../../elements/StyleDialogs/styled'
 
 import { apiGetManagerList } from '../../../../../api/manager'
 
+import { fetchSetCreateProjectFieldValue } from '../../../../../redux/modules/project'
+import { getCreateProjectFields } from '../../../../../selectors/project'
+
 class ProjectInfo extends React.Component {
   state = {
     fieldValue: {}, // значение полей формы
@@ -18,16 +21,13 @@ class ProjectInfo extends React.Component {
   changeInputHandler = event => {
     var name = event.target.name ? event.target.name : event.target.id,
       val = event.target.value;
-    this.setState(prevState => ({
-      fieldValue: { ...prevState.fieldValue, [name]: val, },
-      error: { ...prevState.error, [name]: false },
-    }));
+    this.props.fetchSetCreateProjectFieldValue({name: name, value: val,});
   }
 
   componentDidMount() {
     apiGetManagerList().then(res => {
       res.data && res.data.map(ob => ob.initials = ob.surname + ' ' + ob.name.charAt(0) + '. ' + ob.patronymic.charAt(0) + '.')
-      this.setState({ managers: res.data })
+      this.props.fetchSetCreateProjectFieldValue({ name: 'managers', value: res.data })
     });
   }
 
@@ -46,20 +46,7 @@ class ProjectInfo extends React.Component {
     ]
 
     var { managers } = this.state;
-    // [ // TODO тянуть с бека
-    //   {
-    //     id: '1',
-    //     val: 'test',
-    //     text: 'Test T. T.',
-    //     getText: () => 'Test T. R.'
-    //   },
-    //   {
-    //     id: '2',
-    //     val: 'admin',
-    //     text: 'Иванов И. TEXT.',
-    //     getText: () => 'Иванов И. T.'
-    //   },
-    // ]
+    var fields = this.props.fields
     return (
       <FlexBox>
         <FlexRow className="flex-row">
@@ -69,7 +56,7 @@ class ProjectInfo extends React.Component {
               isRequired={true}
               placeholder="Организация"
               data={organizations}
-              selectedValue={this.state.fieldValue.organization}
+              selectedValue={fields.organization}
               onChange={this.changeInputHandler}
               error={this.state.error.organization}
             />
@@ -82,7 +69,7 @@ class ProjectInfo extends React.Component {
                 type="text"
                 isRequired={true}
                 placeholder="Название проекта"
-                value={this.state.fieldValue.projectName}
+                value={fields.projectName}
                 onChange={this.changeInputHandler}
                 error={this.state.error.projectName}
               />
@@ -114,10 +101,10 @@ class ProjectInfo extends React.Component {
               id="manager"
               isRequired={true}
               placeholder="Менеджер"
-              data={managers}
+              data={fields.managers}
               value="id"
               text="initials"
-              selectedValue={this.state.fieldValue.manager}
+              selectedValue={fields.manager}
               onChange={this.changeInputHandler}
               error={this.state.error.manager}
             />
@@ -132,7 +119,7 @@ class ProjectInfo extends React.Component {
               type="text"
               isRequired={false}
               placeholder="Документы по проекту"
-              value={this.state.fieldValue.documents}
+              value={fields.documents}
               onChange={this.changeInputHandler}
             />
           </div>
@@ -142,30 +129,8 @@ class ProjectInfo extends React.Component {
   }
 }
 
-ProjectInfo.state = {
-  fieldValue: PropTypes.shape(
-    {
-      middleName: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      phone: PropTypes.string,
-      mail: PropTypes.string,
-      login: PropTypes.string,
-      newPassword: PropTypes.string,
-    }
-  ),
-  error: PropTypes.shape(
-    {
-      middleName: PropTypes.bool,
-      firstName: PropTypes.bool,
-      lastName: PropTypes.bool,
-      phone: PropTypes.bool,
-      mail: PropTypes.bool,
-      login: PropTypes.bool,
-      loginIsExist: PropTypes.bool,
-      newPassword: PropTypes.bool,
-    }
-  )
-}
+const mapStateToProps = state => ({
+ fields: getCreateProjectFields(state),
+})
 
-export default connect(null)(ProjectInfo)
+export default connect(mapStateToProps, { fetchSetCreateProjectFieldValue })(ProjectInfo)

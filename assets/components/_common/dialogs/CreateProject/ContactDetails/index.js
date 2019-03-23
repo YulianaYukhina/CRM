@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 
 import Input from '../../../elements/Input'
 import { FlexBox, FlexRow } from '../../../elements/StyleDialogs/styled'
+import { fetchSetCreateProjectFieldValue } from '../../../../../redux/modules/project'
+import { getCreateProjectFields } from '../../../../../selectors/project'
 
 class ContactDetails extends React.Component {
   state = {
@@ -14,14 +16,12 @@ class ContactDetails extends React.Component {
   changeInputHandler = event => {
     var name = event.target.name ? event.target.name : event.target.id,
       val = event.target.value;
-    this.setState(prevState => ({
-      fieldValue: { ...prevState.fieldValue, [name]: val, },
-      error: { ...prevState.error, [name]: false },
-    }));
+    this.props.fetchSetCreateProjectFieldValue({name: name, value: val,});
   }
 
 
   render() {
+    var fields = this.props.fields
     return (
             <FlexBox>
               <FlexRow className="flex-row">
@@ -30,7 +30,7 @@ class ContactDetails extends React.Component {
                       type="text"
                       isRequired={true}
                       placeholder="Фамилия"
-                      value={this.state.fieldValue.middleName}
+                      value={fields.middleName}
                       onChange={this.changeInputHandler}
                       error={this.state.error.middleName}
                     />
@@ -44,7 +44,7 @@ class ContactDetails extends React.Component {
                       type="text"
                       isRequired={true}
                       placeholder="Имя"
-                      value={this.state.fieldValue.firstName}
+                      value={fields.firstName}
                       onChange={this.changeInputHandler}
                       error={this.state.error.firstName}
                     />
@@ -60,7 +60,7 @@ class ContactDetails extends React.Component {
                     type="text"
                     isRequired={true}
                     placeholder="Отчество"
-                    value={this.state.fieldValue.lastName}
+                    value={fields.lastName}
                     onChange={this.changeInputHandler}
                     error={this.state.error.lastName}
                   />
@@ -74,7 +74,7 @@ class ContactDetails extends React.Component {
                     type="text"
                     isRequired={true}
                     placeholder="Телефон"
-                    value={this.state.fieldValue.phone}
+                    value={fields.phone}
                     onChange={this.changeInputHandler}
                     error={this.state.error.phone}
                   />
@@ -90,7 +90,7 @@ class ContactDetails extends React.Component {
                     type="text"
                     isRequired={true}
                     placeholder="Почта"
-                    value={this.state.fieldValue.mail}
+                    value={fields.mail}
                     onChange={this.changeInputHandler}
                     error={this.state.error.mail}
                   />
@@ -108,30 +108,9 @@ class ContactDetails extends React.Component {
   }
 }
 
-ContactDetails.state = {
-  fieldValue: PropTypes.shape(
-    {
-      middleName: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      phone: PropTypes.string,
-      mail: PropTypes.string,
-      login: PropTypes.string,
-      newPassword: PropTypes.string,
-    }
-  ),
-  error: PropTypes.shape(
-    {
-      middleName: PropTypes.bool,
-      firstName: PropTypes.bool,
-      lastName: PropTypes.bool,
-      phone: PropTypes.bool,
-      mail: PropTypes.bool,
-      login: PropTypes.bool,
-      loginIsExist: PropTypes.bool,
-      newPassword: PropTypes.bool,
-    }
-  )
-}
 
-export default connect(null)(ContactDetails)
+const mapStateToProps = state => ({
+  fields: getCreateProjectFields(state),
+ })
+
+export default connect(mapStateToProps, { fetchSetCreateProjectFieldValue })(ContactDetails)
