@@ -11,61 +11,49 @@ import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/st
 import ModalDialog from '../../ModalDialog'
 import { Container } from './styled'
 
+import { fetchSetCreateProjectFieldValueNull, fetchSetCreateProjectFieldValueError } from '../../../../redux/modules/project'
+import { getCreateProjectFields } from '../../../../selectors/project'
+import { apiSaveProject } from '../../../../api/project'
+
 import ProjectInfo from './ProjectInfo'
 import ContactDetails from './ContactDetails'
 import WorkPerformed from './WorkPerformed'
 
 class CreateProject extends React.Component {
   state = {
-    fieldValue: {}, // значение полей формы
-    error: {},
     key: 'ProjectInfo',
   };
 
-  changeInputHandler = event => {
-    var name = event.target.name ? event.target.name : event.target.id,
-      val = event.target.value;
-    this.setState(prevState => ({
-      fieldValue: { ...prevState.fieldValue, [name]: val, },
-      error: { ...prevState.error, [name]: false },
-    }));
-  }
-
   create = () => {
     if (this.validate()) {
-      let { fieldValue } = this.state;
-      apiSaveManager(fieldValue)
-        .then(res => this.props.onHide())
+      apiSaveProject(this.props.fields)
+        .then(res => {
+          this.props.fetchSetCreateProjectFieldValueNull();
+          this.props.onHide()
+        })
     }
   }
 
   validate = () => {
-    var val = this.state.fieldValue;
+    var val = this.props.fields;
 
-    if (!val.middleName
-      || !val.firstName
-      || !val.lastName
-      || !val.phone
-      || !val.mail
-      || !val.login
-      || !val.newPassword
-      || val.newPassword !== val.confirmPassword
+    if (!val.responsibleMiddleName
+      || !val.responsibleFirstName
+      || !val.responsibleLastName
+      || !val.responsiblePhone
+      || !val.manager
+      || !val.organization
+      || !val.projectName
     ) {
-      this.setState(prevSate => (
-        {
-          error: {
-            ...prevSate.error,
-            middleName: !prevSate.fieldValue.middleName,
-            firstName: !prevSate.fieldValue.firstName,
-            lastName: !prevSate.fieldValue.lastName,
-            phone: !prevSate.fieldValue.phone,
-            mail: !prevSate.fieldValue.mail,
-            login: !prevSate.fieldValue.login,
-            newPassword: !prevSate.fieldValue.newPassword,
-            confirmPassword: prevSate.fieldValue.newPassword !== prevSate.fieldValue.confirmPassword
-          }
-        }
-      ))
+      this.props.fetchSetCreateProjectFieldValueError({
+        responsibleMiddleName: !val.responsibleMiddleName,
+        responsibleFirstName: !val.responsibleFirstName,
+        responsibleLastName: !val.responsibleLastName,
+        responsiblePhone: !val.responsiblePhone,
+        manager: !val.manager,
+        organization: !val.organization,
+        projectName: !val.projectName,
+      })
       return false;
     }
     return true;
@@ -78,22 +66,22 @@ class CreateProject extends React.Component {
           <Container>
             <FormHead text="Создать проект" handleClick={this.props.onHide} />
             <div className="create-project-container-tabs">
-            <Tabs
-            id="CreateProjectTabs"
-            activeKey={this.state.key}
-            onSelect={key=>this.setState({key})}
-            className="CreateProjectTabs"
-            >
-              <Tab eventKey="ProjectInfo" title="Информация о проекте">
-                <ProjectInfo />
-              </Tab>
-              <Tab eventKey="ContactDetails" title="Контактные данные">
-                <ContactDetails />
-              </Tab>
-              <Tab eventKey="WorkPerformed" title="Выполняемые работы">
-                <WorkPerformed />
-              </Tab>
-            </Tabs>
+              <Tabs
+                id="CreateProjectTabs"
+                activeKey={this.state.key}
+                onSelect={key => this.setState({ key })}
+                className="CreateProjectTabs"
+              >
+                <Tab eventKey="ProjectInfo" title="Информация о проекте">
+                  <ProjectInfo />
+                </Tab>
+                <Tab eventKey="ContactDetails" title="Контактные данные">
+                  <ContactDetails />
+                </Tab>
+                <Tab eventKey="WorkPerformed" title="Выполняемые работы">
+                  <WorkPerformed />
+                </Tab>
+              </Tabs>
             </div>
             <div className="form-submit">
               <Button onClick={this.create} value="Сохранить" />
@@ -111,34 +99,8 @@ CreateProject.props = {
   onHide: PropTypes.func,
 }
 
-CreateProject.state = {
-  fieldValue: PropTypes.shape(
-    {
-      middleName: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      phone: PropTypes.string,
-      mail: PropTypes.string,
-      login: PropTypes.string,
-      newPassword: PropTypes.string,
-    }
-  ),
-  error: PropTypes.shape(
-    {
-      middleName: PropTypes.bool,
-      firstName: PropTypes.bool,
-      lastName: PropTypes.bool,
-      phone: PropTypes.bool,
-      mail: PropTypes.bool,
-      login: PropTypes.bool,
-      loginIsExist: PropTypes.bool,
-      newPassword: PropTypes.bool,
-    }
-  )
-}
+const mapStateToProps = state => ({
+  fields: getCreateProjectFields(state),
+})
 
-//const mapStateToProps = state => ({
-//  troops: getTroopList(state),
-//})
-
-export default connect(null)(CreateProject)
+export default connect(mapStateToProps, { fetchSetCreateProjectFieldValueNull, fetchSetCreateProjectFieldValueError })(CreateProject)

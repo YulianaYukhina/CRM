@@ -9,7 +9,7 @@ import { FlexBox, FlexRow } from '../../../elements/StyleDialogs/styled'
 import { apiGetManagerList } from '../../../../../api/manager'
 
 import { fetchSetCreateProjectFieldValue } from '../../../../../redux/modules/project'
-import { getCreateProjectFields } from '../../../../../selectors/project'
+import { getCreateProjectFields, getCreateProjectFieldsErorrs } from '../../../../../selectors/project'
 
 class ProjectInfo extends React.Component {
   state = {
@@ -34,11 +34,13 @@ class ProjectInfo extends React.Component {
   render() {
     var organizations = [ // TODO тянуть с бека
       {
+        key: '1',
         id: '1',
         val: 'sber',
         text: 'Сбербанк'
       },
       {
+        key: '2',
         id: '2',
         val: 'tinkoff',
         text: 'Тинькофф'
@@ -46,7 +48,7 @@ class ProjectInfo extends React.Component {
     ]
 
     var { managers } = this.state;
-    var fields = this.props.fields
+    var { fields, errors} = this.props
     return (
       <FlexBox>
         <FlexRow className="flex-row">
@@ -58,10 +60,10 @@ class ProjectInfo extends React.Component {
               data={organizations}
               selectedValue={fields.organization}
               onChange={this.changeInputHandler}
-              error={this.state.error.organization}
+              error={errors.organization}
             />
             {
-              this.state.error.organization
+              errors.organization
               && (<div className="error-message">Выберите организацию!</div>)
             }
             <div style={{ marginTop: '40px' }}>
@@ -71,10 +73,10 @@ class ProjectInfo extends React.Component {
                 placeholder="Название проекта"
                 value={fields.projectName}
                 onChange={this.changeInputHandler}
-                error={this.state.error.projectName}
+                error={errors.projectName}
               />
               {
-                this.state.error.projectName
+                errors.projectName
                 && (<div className="error-message">Введите название!</div>)
               }
             </div>
@@ -90,7 +92,7 @@ class ProjectInfo extends React.Component {
               />
             </div>
             {
-              this.state.error.address
+              errors.address
               && (<div className="error-message">Введите адрес!</div>)
             }
           </div>
@@ -106,10 +108,10 @@ class ProjectInfo extends React.Component {
               text="initials"
               selectedValue={fields.manager}
               onChange={this.changeInputHandler}
-              error={this.state.error.manager}
+              error={errors.manager}
             />
             {
-              this.state.error.manager
+              errors.manager
               && (<div className="error-message">Выберите ответственного менеджера!</div>)
             }
           </div>
@@ -131,6 +133,7 @@ class ProjectInfo extends React.Component {
 
 const mapStateToProps = state => ({
  fields: getCreateProjectFields(state),
+ errors: getCreateProjectFieldsErorrs(state),
 })
 
 export default connect(mapStateToProps, { fetchSetCreateProjectFieldValue })(ProjectInfo)
