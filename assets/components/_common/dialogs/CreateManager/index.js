@@ -1,18 +1,19 @@
-﻿import React from 'react'
+﻿// диалог по созданию менеджера
+
+import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { apiSaveManager, apiCheckExistLogin } from '../../../../api/manager'
+import { apiSaveManager, apiCheckExistLogin } from '../../../../api/manager' // апи(общение с сервером)
 
-import Input from '../../elements/Input'
-import Select from '../../elements/Select'
-import FormHead from '../../elements/FormHead'
-import Button from '../../elements/Button'
-import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled'
-import ModalDialog from '../../ModalDialog'
-import Cropper from '../../cropper'
-import { Container } from './styled'
-import PhotoPlaceholder from '../../../../images/PhotoPlaceholder.png'
+import Input from '../../elements/Input' // контролл инпут(ввод текста)
+import FormHead from '../../elements/FormHead' // шапка модального окна(название и крестик)
+import Button from '../../elements/Button' // кнопка
+import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/styled' // стили для верстки
+import ModalDialog from '../../ModalDialog' // модальное окно
+import Cropper from '../../cropper' // кроппер(обрезка картинки)
+import { Container } from './styled' // стили для окна менеджера
+import PhotoPlaceholder from '../../../../images/PhotoPlaceholder.png' // плейсхолдер для фото(то что по умолчанию стоит)
 
 class CreateManager extends React.Component {
   state = {

@@ -1,7 +1,7 @@
 ﻿import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Tabs, Tab } from 'react-bootstrap'
+import { Tabs, Tab } from 'react-bootstrap' // бутстрам вкладки
 
 import Input from '../../elements/Input'
 import Select from '../../elements/Select'
@@ -11,9 +11,9 @@ import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/st
 import ModalDialog from '../../ModalDialog'
 import { Container } from './styled'
 
-import ProjectInfo from './ProjectInfo'
-import ContactDetails from './ContactDetails'
-import WorkPerformed from './WorkPerformed'
+import ProjectInfo from './ProjectInfo' // 1 вкладка(инфа о проекте)
+import ContactDetails from './ContactDetails' // 2 вкладка (контактная инфа)
+import WorkPerformed from './WorkPerformed' // 3 вкладка(работы)
 
 class CreateProject extends React.Component {
   state = {

@@ -1,4 +1,5 @@
 //@flow
+// основная страница пользователя
 import React from 'react'
 import NavBar from '../../_common/NavBar'
 import axios from 'axios'

@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-
+const bcrypt = require('bcrypt'); // библиотека для шифрования
+// модель менеджера
 module.exports = {
   attributes: {
     name: {

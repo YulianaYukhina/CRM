@@ -1,3 +1,4 @@
+// файл запуска реакта(он создает главный компонент реакта)
 import 'styles/app.scss';
 
 // import 'bootstrap/dist/css/bootstrap.css';

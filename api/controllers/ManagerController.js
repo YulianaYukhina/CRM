@@ -1,15 +1,14 @@
+// действия с сущьностью менеджера
 module.exports = {
-  CheckExistLogin: async (req, res) => {
+  CheckExistLogin: async (req, res) => { // проверка на существования логина
     let data = req.query;
-    //let t = await User.findOne({ login: data.login });
     if (await User.findOne({ login: data.login }))
       res.ok({ LoginIsExist: true });
     else
       res.ok({ LoginIsExist: false })
   },
-  Save: async (req, res) => {
+  Save: async (req, res) => { // создать менеджера
     let data = req.body;
-    //let t = ;
     if (!await User.findOne({ login: data.login }) || req.file('photo')._files[0]) {
       let user = await User.CreateUser(data.login, data.newPassword, 'admin');
       if (user) {
@@ -22,7 +21,7 @@ module.exports = {
           user: user.id
         }).fetch();
         if (manager) {
-          req.file('photo').upload({
+          req.file('photo').upload({ // загружаю файд с названием "photo"
             dirname: './photo',
             saveAs: manager.id + '.jpg',
           },
@@ -38,7 +37,7 @@ module.exports = {
     }
     res.badRequest('произошла ошибка при создании менеджера');
   },
-  GetManagersList: async (req, res) => {
+  GetManagersList: async (req, res) => { // получить список менеджеров
     var managers = await Manager.find();
     res.ok(managers);
   }

@@ -1,5 +1,6 @@
+//  этот контроллер нужен для работы реакта
 module.exports = {
-  index: function (req, res) {
+  index: function (req, res) { // рендеринг индекса(в нем дальше начинает работаь реакт)
 
     var bundle;
 

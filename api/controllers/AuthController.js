@@ -1,8 +1,9 @@
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
+// этот контроллер отвечает за авторизацию
 module.exports = {
-  Login: async (req, res) => {
+  Login: async (req, res) => { // логин(вход)
     passport.authenticate('local', (err, user) => {
       if(err || !user){
         res.status(400).send({
@@ -17,7 +18,7 @@ module.exports = {
       });
     })(req, res);
   },
-  Logout: async (req, res) => {
+  Logout: async (req, res) => { // логаут(выхож)
     req.logout();
     req.session.destroy();
     res.status(200).send();

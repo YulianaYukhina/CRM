@@ -1,4 +1,7 @@
 //@flow
+
+// то что видит админ
+
 import React from 'react'
 
 import NavBar from '../../_common/NavBar'
