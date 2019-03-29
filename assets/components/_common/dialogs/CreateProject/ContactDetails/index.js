@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 
 import Input from '../../../elements/Input'
 import { FlexBox, FlexRow } from '../../../elements/StyleDialogs/styled'
+import { fetchSetCreateProjectFieldValue } from '../../../../../redux/modules/project'
+import { getCreateProjectFields, getCreateProjectFieldsErorrs } from '../../../../../selectors/project'
 
 class ContactDetails extends React.Component {
   state = {
@@ -14,90 +16,83 @@ class ContactDetails extends React.Component {
   changeInputHandler = event => {
     var name = event.target.name ? event.target.name : event.target.id,
       val = event.target.value;
-    this.setState(prevState => ({
-      fieldValue: { ...prevState.fieldValue, [name]: val, },
-      error: { ...prevState.error, [name]: false },
-    }));
+    this.props.fetchSetCreateProjectFieldValue({name: name, value: val,});
   }
 
 
   render() {
+    var {fields, errors} = this.props
     return (
             <FlexBox>
               <FlexRow className="flex-row">
                 <div>
-                  <Input id="middleName"
+                  <Input id="responsibleMiddleName"
                       type="text"
                       isRequired={true}
                       placeholder="Фамилия"
-                      value={this.state.fieldValue.middleName}
+                      value={fields.responsibleMiddleName}
                       onChange={this.changeInputHandler}
-                      error={this.state.error.middleName}
+                      error={errors.responsibleMiddleName}
                     />
                     {
-                      this.state.error.middleName
+                      errors.responsibleMiddleName
                       && (<div className="error-message">Введите фамилию!</div>)
                     }
                 </div>
                 <div>
-                <Input id="firstName"
+                <Input id="responsibleFirstName"
                       type="text"
                       isRequired={true}
                       placeholder="Имя"
-                      value={this.state.fieldValue.firstName}
+                      value={fields.responsibleFirstName}
                       onChange={this.changeInputHandler}
-                      error={this.state.error.firstName}
+                      error={errors.responsibleFirstName}
                     />
                     {
-                      this.state.error.firstName
+                      errors.responsibleFirstName
                       && (<div className="error-message">Введите имя!</div>)
                     }
                 </div>
               </FlexRow>
               <FlexRow className="flex-row">
                 <div>
-                <Input id="lastName"
+                <Input id="responsibleLastName"
                     type="text"
                     isRequired={true}
                     placeholder="Отчество"
-                    value={this.state.fieldValue.lastName}
+                    value={fields.responsibleLastName}
                     onChange={this.changeInputHandler}
-                    error={this.state.error.lastName}
+                    error={errors.responsibleLastName}
                   />
                   {
-                    this.state.error.lastName
+                    errors.responsibleLastName
                     && (<div className="error-message">Введите отчество!</div>)
                   }
                 </div>
                 <div>
-                <Input id="phone"
+                <Input id="responsiblePhone"
                     type="text"
                     isRequired={true}
                     placeholder="Телефон"
-                    value={this.state.fieldValue.phone}
+                    value={fields.responsiblePhone}
                     onChange={this.changeInputHandler}
-                    error={this.state.error.phone}
+                    error={errors.responsiblePhone}
                   />
                   {
-                    this.state.error.phone
+                    errors.responsiblePhone
                     && (<div className="error-message">Введите телефон!</div>)
                   }
                 </div>
               </FlexRow>
               <FlexRow className="flex-row">
                 <div>
-                <Input id="mail"
+                <Input id="responsibleMail"
                     type="text"
-                    isRequired={true}
+                    isRequired={false}
                     placeholder="Почта"
-                    value={this.state.fieldValue.mail}
+                    value={fields.responsibleMail}
                     onChange={this.changeInputHandler}
-                    error={this.state.error.mail}
                   />
-                  {
-                    this.state.error.mail
-                    && (<div className="error-message">Введите почту!</div>)
-                  }
                 </div>
                 <div>
 
@@ -108,30 +103,10 @@ class ContactDetails extends React.Component {
   }
 }
 
-ContactDetails.state = {
-  fieldValue: PropTypes.shape(
-    {
-      middleName: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      phone: PropTypes.string,
-      mail: PropTypes.string,
-      login: PropTypes.string,
-      newPassword: PropTypes.string,
-    }
-  ),
-  error: PropTypes.shape(
-    {
-      middleName: PropTypes.bool,
-      firstName: PropTypes.bool,
-      lastName: PropTypes.bool,
-      phone: PropTypes.bool,
-      mail: PropTypes.bool,
-      login: PropTypes.bool,
-      loginIsExist: PropTypes.bool,
-      newPassword: PropTypes.bool,
-    }
-  )
-}
 
-export default connect(null)(ContactDetails)
+const mapStateToProps = state => ({
+  fields: getCreateProjectFields(state),
+  errors: getCreateProjectFieldsErorrs(state),
+ })
+
+export default connect(mapStateToProps, { fetchSetCreateProjectFieldValue })(ContactDetails)

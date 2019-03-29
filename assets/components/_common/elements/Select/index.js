@@ -15,23 +15,23 @@ class Select extends React.Component {
     }
 
     render() {
-        const { value, text, selectedValue} = this.props
+        const { value, text, selectedValue, key} = this.props
         return (
             <Container
                 className={`${(this.state.isFocus || selectedValue) ? 'animate' : ''} ${
                     this.props.error ? 'invalid' : ''
                     }`}
             >
-                <select value={selectedValue} onChange={this.props.onChange} id={this.props.id} onFocus={this.Focus} onBlur={this.Blur}>
-                    <option disabled selected></option>
+                <select value={selectedValue} onChange={this.props.onChange} id={this.props.id} onFocus={this.Focus} onBlur={this.Blur} defaultValue="default_disabled">
+                    <option value="default_disabled" key="default_disabled" disabled></option>
                     {this.props.data && this.props.data.map(ob => {
                         return (
-                            <option value={ob[value]}>{ob[text] || ob.getText()}</option>
+                            <option value={ob[value]} key={ob[key]}>{ob[text] || ob.getText()}</option>
                         )
                     })}
                 </select>
                 <label
-                    htmlFor={this.props.id}
+                    htmlFor={this.props.key}
                     unselectable="on"
                     className="label-for-input"
                 >
@@ -44,17 +44,6 @@ class Select extends React.Component {
     }
 }
 
-Select.props = {
-    placeholder: PropTypes.string,
-    id: PropTypes.string,
-    data: PropTypes.array,
-    value: PropTypes.string,
-    selectedValue: PropTypes.string,
-    text: PropTypes.string,
-    isRequired: PropTypes.bool,
-    error: PropTypes.bool,
-    onChange: PropTypes.func,
-}
 
 Select.defaultProps = {
     key: 'id',
@@ -62,6 +51,18 @@ Select.defaultProps = {
     text: 'text',
     isRequired: false,
     error: false,
+}
+Select.props = {
+
+    placeholder: PropTypes.string,
+    key: PropTypes.string,
+    data: PropTypes.array,
+    value: PropTypes.string,
+    selectedValue: PropTypes.string,
+    text: PropTypes.string,
+    isRequired: PropTypes.bool,
+    error: PropTypes.bool,
+    onChange: PropTypes.func,
 }
 
 export default Select

@@ -10,6 +10,9 @@ import Select from '../../../elements/Select'
 import { FlexBox, FlexRow } from '../../../elements/StyleDialogs/styled'
 import { design, constructionWork, specialEngineeringSystems } from '../../../../../constants/workPerformedConstants'
 
+import { fetchSetCreateProjectFieldValue } from '../../../../../redux/modules/project'
+import { getCreateProjectFields } from '../../../../../selectors/project'
+
 class WorkPerformed extends React.Component {
   state = {
     fieldValue: {
@@ -23,29 +26,22 @@ class WorkPerformed extends React.Component {
   changeInputHandler = event => {
     var name = event.target.name ? event.target.name : event.target.id,
       val = event.target.value;
-    this.setState(prevState => ({
-      fieldValue: { ...prevState.fieldValue, [name]: val, },
-      error: { ...prevState.error, [name]: false },
-    }));
+    this.props.fetchSetCreateProjectFieldValue({name: name, value: val,});
   }
 
   changeSelectedFields = (fieldName, val) => {
-    this.setState(prevState => {
-      prevState.fieldValue[fieldName] = val;
-      return {
-        fieldValue: prevState.fieldValue
-      }
-    });
+    this.props.fetchSetCreateProjectFieldValue({name: fieldName, value: val,});
   }
 
   render() {
+    var fields = this.props.fields
     return (
       <FlexBox style={{ maxWidth: '480px' }}>
         <FlexRow className="flex-row">
           <div style={{ width: '100%' }}>
             <Picky
               options={design}
-              value={this.state.fieldValue.design}
+              value={fields.design}
               onChange={value => this.changeSelectedFields('design', value)}
               multiple={true}
               valueKey="val"
@@ -63,7 +59,7 @@ class WorkPerformed extends React.Component {
           <div style={{ width: '100%' }}>
             <Picky
               options={constructionWork}
-              value={this.state.fieldValue.constructionWork}
+              value={fields.constructionWork}
               onChange={value => this.changeSelectedFields('constructionWork', value)}
               multiple={true}
               valueKey="val"
@@ -81,7 +77,7 @@ class WorkPerformed extends React.Component {
           <div style={{ width: '100%' }}>
             <Picky
               options={specialEngineeringSystems}
-              value={this.state.fieldValue.specialEngineeringSystems}
+              value={fields.specialEngineeringSystems}
               onChange={value => this.changeSelectedFields('specialEngineeringSystems', value)}
               multiple={true}
               valueKey="val"
@@ -100,30 +96,8 @@ class WorkPerformed extends React.Component {
   }
 }
 
-WorkPerformed.state = {
-  fieldValue: PropTypes.shape(
-    {
-      middleName: PropTypes.string,
-      firstName: PropTypes.string,
-      lastName: PropTypes.string,
-      phone: PropTypes.string,
-      mail: PropTypes.string,
-      login: PropTypes.string,
-      newPassword: PropTypes.string,
-    }
-  ),
-  error: PropTypes.shape(
-    {
-      middleName: PropTypes.bool,
-      firstName: PropTypes.bool,
-      lastName: PropTypes.bool,
-      phone: PropTypes.bool,
-      mail: PropTypes.bool,
-      login: PropTypes.bool,
-      loginIsExist: PropTypes.bool,
-      newPassword: PropTypes.bool,
-    }
-  )
-}
+const mapStateToProps = state => ({
+  fields: getCreateProjectFields(state),
+ })
 
-export default connect(null)(WorkPerformed)
+export default connect(mapStateToProps, { fetchSetCreateProjectFieldValue })(WorkPerformed)

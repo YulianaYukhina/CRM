@@ -28,6 +28,7 @@ module.exports.routes = {
   'POST /manager/save': 'Manager.Save',
   'GET /manager/checkExistLogin': 'Manager.CheckExistLogin',
   'GET /manager/getManagers': 'Manager.GetManagersList',
+  'POST /project/save': 'Project.Save',
   'GET /*': {
     controller: 'AppController',
     action: 'index',
