@@ -2,6 +2,7 @@
 import React from 'react'
 
 import NavBar from '../../_common/NavBar'
+import ProjectListItem from '../../_common/projectListItem'
 
 
 class AdminCabinet extends React.Component {
@@ -9,7 +10,14 @@ class AdminCabinet extends React.Component {
     return (
       <div>
         <NavBar/>
-          Страница админа
+        <div style={{marginTop: "20px"}}>
+        <ProjectListItem />
+        <ProjectListItem />
+        <ProjectListItem />
+        <ProjectListItem />
+        <ProjectListItem />
+        <ProjectListItem />
+        </div>
       </div>
     )
   }
