@@ -1,4 +1,5 @@
-﻿import axios from 'axios'
+﻿// запросы к серверу(на котроле user)
+import axios from 'axios'
 import { setAuthToken } from '../axiosExtensions'
 import history from '../history'
 

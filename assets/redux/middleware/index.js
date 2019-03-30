@@ -1,4 +1,6 @@
-﻿import { all, fork } from 'redux-saga/effects'
+﻿// код который сздаетм мидлвари
+
+import { all, fork } from 'redux-saga/effects'
 
 import studentList from './studentList'
 import projects from './projects'

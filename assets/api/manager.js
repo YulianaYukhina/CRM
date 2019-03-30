@@ -1,3 +1,4 @@
+// запросы к серверу (к контроллеру менеджера)
 import axios from 'axios'
 
 const SAVE_MANAGER_URL = '/manager/save'

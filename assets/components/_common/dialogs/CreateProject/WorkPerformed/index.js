@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import Picky from 'react-picky'
+import Picky from 'react-picky' // выпадающий список с чекбоксами внутри
 import 'react-picky/dist/picky.css'
 
 import Input from '../../../elements/Input'

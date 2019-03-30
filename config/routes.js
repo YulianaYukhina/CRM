@@ -7,7 +7,7 @@
  * For more information on configuring custom routes, check out:
  * https://sailsjs.com/anatomy/config/routes-js
  */
-
+// маршрутизация ( связывает действие контроллера с определенным урл_ом)
 module.exports.routes = {
 
   /***************************************************************************

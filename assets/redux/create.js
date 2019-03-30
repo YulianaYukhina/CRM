@@ -1,4 +1,5 @@
-﻿import { createStore as _createStore, applyMiddleware } from 'redux'
+﻿// код который создает весь редакс (мидлвари + хранилища)
+import { createStore as _createStore, applyMiddleware } from 'redux'
 import logger from 'redux-logger'
 import createSagaMiddleware from 'redux-saga'
 

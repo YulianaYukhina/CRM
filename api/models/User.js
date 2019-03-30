@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-
+const bcrypt = require('bcrypt'); // библиотека для шифрования
+// модель пользователя(она содердится в менеджере и в организации)
 module.exports = {
   attributes: {
     login: {
