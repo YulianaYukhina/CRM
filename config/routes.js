@@ -30,6 +30,8 @@ module.exports.routes = {
   'GET /manager/getManagers': 'Manager.GetManagersList',
   'POST /project/save': 'Project.Save',
   'GET /project/getProjectList': 'Project.GetProjectList',
+  'GET /project/deleteProject': 'Project.DeleteProject',
+  'GET /project/getProject': 'Project.GetProject',
   'GET /*': {
     controller: 'AppController',
     action: 'index',

@@ -27,7 +27,8 @@ class ProjectInfo extends React.Component {
   componentDidMount() {
     apiGetManagerList().then(res => {
       res.data && res.data.map(ob => ob.initials = ob.surname + ' ' + ob.name.charAt(0) + '. ' + ob.patronymic.charAt(0) + '.')
-      this.props.fetchSetCreateProjectFieldValue({ name: 'managers', value: res.data })
+      this.setState({managers: res.data});
+      //this.props.fetchSetCreateProjectFieldValue({ name: 'managers', value: res.data })
     });
   }
 
@@ -89,6 +90,7 @@ class ProjectInfo extends React.Component {
                 onChange={this.changeInputHandler}
                 tabIndex="10"
                 maxLength="250"
+                value={fields.addres}
               />
             </div>
             {
@@ -103,7 +105,7 @@ class ProjectInfo extends React.Component {
               id="manager"
               isRequired={true}
               placeholder="Менеджер"
-              data={fields.managers}
+              data={managers}
               value="id"
               text="initials"
               selectedValue={fields.manager}

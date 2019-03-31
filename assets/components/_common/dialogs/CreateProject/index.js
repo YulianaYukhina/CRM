@@ -11,7 +11,12 @@ import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/st
 import ModalDialog from '../../ModalDialog'
 import { Container } from './styled'
 
-import { fetchSetCreateProjectFieldValueNull, fetchSetCreateProjectFieldValueError, fetchGetProjectList } from '../../../../redux/modules/project'
+import {
+  fetchSetCreateProjectFieldValueNull,
+  fetchSetCreateProjectFieldValueError,
+  fetchGetProjectList,
+  fetchGetProjectByID,
+} from '../../../../redux/modules/project'
 import { getCreateProjectFields } from '../../../../selectors/project'
 import { apiSaveProject } from '../../../../api/project'
 
@@ -23,6 +28,12 @@ class CreateProject extends React.Component {
   state = {
     key: 'ProjectInfo',
   };
+
+  componentDidMount() {
+    if (this.props.id) {
+      this.props.fetchGetProjectByID(this.props.id);
+    }
+  }
 
   create = () => {
     if (this.validate()) {
@@ -98,6 +109,7 @@ class CreateProject extends React.Component {
 CreateProject.props = {
   show: PropTypes.bool,
   onHide: PropTypes.func,
+  id: PropTypes.string,
 }
 
 const mapStateToProps = state => ({
@@ -108,6 +120,7 @@ const fetch = {
   fetchSetCreateProjectFieldValueNull,
   fetchSetCreateProjectFieldValueError,
   fetchGetProjectList,
+  fetchGetProjectByID,
 }
 
 export default connect(mapStateToProps, fetch)(CreateProject)
