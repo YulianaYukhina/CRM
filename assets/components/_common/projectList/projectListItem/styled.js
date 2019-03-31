@@ -14,12 +14,11 @@ background-color: #ffffff;
   margin-bottom: 25px;
   cursor: pointer;
 
-  @media only screen and (min-width: 1025px) {
-    &:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
-    }
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.6);
   }
+
 `
 
 export const Manager = styled.div`
