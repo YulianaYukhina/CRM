@@ -16,13 +16,16 @@ module.exports.bootstrap = async function() {
   // For example:
   // ```
   // // Set up fake development data (or if we already have some, avast)
-  if (await User.count() === 0) {
-    User.CreateUser('User', 'P@ssw0rd','user');
-    User.CreateUser('Admin', 'P@ssw0rd','admin');
-  }
+  // if (await User.count() === 0) {
+  //   User.CreateUser('User', 'P@ssw0rd','user');
+  //   User.CreateUser('Admin', 'P@ssw0rd','admin');
+  // }
 
   if (await Manager.count() === 0) {
     Manager.TestCreateManager();
+  }
+  if (await Organization.count() === 0) {
+    Organization.TestCreateOrganization();
   }
   // ```
 

@@ -5,6 +5,7 @@ import { Container } from './styled'
 
 import CreateManager from '../dialogs/CreateManager'
 import CreateProject from '../dialogs/CreateProject'
+import CreateOrganization from '../dialogs/CreateOrganization'
 
 
 class NavBar extends React.Component {
@@ -33,6 +34,10 @@ class NavBar extends React.Component {
         <Container>
           <Navbar bg="light" expand="lg" onSelect={this.click}>
             <Nav className="mr-auto">
+            <Nav.Link eventKey='CreateOrganization'>Добавить организацию</Nav.Link>
+              {this.state.openModalWindow.CreateOrganization && (
+                <CreateOrganization show={this.state.openModalWindow.CreateOrganization} onHide={() => this.click('CreateOrganization')} />
+              )}
               <Nav.Link eventKey='CreateManager'>Добавить менеджера</Nav.Link>
               {this.state.openModalWindow.CreateManager && (
                 <CreateManager show={this.state.openModalWindow.CreateManager} onHide={() => this.click('CreateManager')} />
@@ -42,10 +47,6 @@ class NavBar extends React.Component {
                 <CreateProject show={this.state.openModalWindow.CreateProject} onHide={() => this.click('CreateProject')} />
               )}
               <Nav.Link eventKey={'Exit'} style={{ position: 'absolute', right: '20px' }}>Exit</Nav.Link>
-              <NavDropdown title="Dropdown">
-                <NavDropdown.Item eventKey="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item eventKey="#action/3.2">Another action</NavDropdown.Item>
-              </NavDropdown>
             </Nav>
           </Navbar>
         </Container>

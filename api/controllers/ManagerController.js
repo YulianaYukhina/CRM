@@ -1,12 +1,5 @@
 // действия с сущьностью менеджера
 module.exports = {
-  CheckExistLogin: async (req, res) => { // проверка на существования логина
-    let data = req.query;
-    if (await User.findOne({ login: data.login }))
-      res.ok({ LoginIsExist: true });
-    else
-      res.ok({ LoginIsExist: false })
-  },
   Save: async (req, res) => { // создать менеджера
     let data = req.body;
     if (!await User.findOne({ login: data.login }) || req.file('photo')._files[0]) {

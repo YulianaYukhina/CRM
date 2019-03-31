@@ -5,7 +5,7 @@ module.exports = {
       //required: true
     },
     organization: {
-      type: 'string',
+      model: 'Organization',
       //required: true
     },
     addres: {

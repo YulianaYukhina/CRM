@@ -7,6 +7,7 @@ import Select from '../../../elements/Select'
 import { FlexBox, FlexRow } from '../../../elements/StyleDialogs/styled'
 
 import { apiGetManagerList } from '../../../../../api/manager'
+import {apiGetOrganizationList} from '../../../../../api/organization'
 
 import { fetchSetCreateProjectFieldValue } from '../../../../../redux/modules/project'
 import { getCreateProjectFields, getCreateProjectFieldsErorrs } from '../../../../../selectors/project'
@@ -15,7 +16,8 @@ class ProjectInfo extends React.Component {
   state = {
     fieldValue: {}, // значение полей формы
     error: {},
-    managers: []
+    managers: [],
+    organizations: [],
   };
 
   changeInputHandler = event => {
@@ -28,27 +30,15 @@ class ProjectInfo extends React.Component {
     apiGetManagerList().then(res => {
       res.data && res.data.map(ob => ob.initials = ob.surname + ' ' + ob.name.charAt(0) + '. ' + ob.patronymic.charAt(0) + '.')
       this.setState({managers: res.data});
-      //this.props.fetchSetCreateProjectFieldValue({ name: 'managers', value: res.data })
     });
+
+    apiGetOrganizationList().then(res => {
+      res.data && this.setState({organizations: res.data});
+    })
   }
 
   render() {
-    var organizations = [ // TODO тянуть с бека
-      {
-        key: '1',
-        id: '1',
-        val: 'sber',
-        text: 'Сбербанк'
-      },
-      {
-        key: '2',
-        id: '2',
-        val: 'tinkoff',
-        text: 'Тинькофф'
-      },
-    ]
-
-    var { managers } = this.state;
+    var { managers, organizations } = this.state;
     var { fields, errors} = this.props
     return (
       <FlexBox>
@@ -59,6 +49,8 @@ class ProjectInfo extends React.Component {
               isRequired={true}
               placeholder="Организация"
               data={organizations}
+              value="id"
+              text="name"
               selectedValue={fields.organization}
               onChange={this.changeInputHandler}
               error={errors.organization}

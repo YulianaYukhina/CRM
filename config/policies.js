@@ -28,5 +28,6 @@ module.exports.policies = {
   },
   ManagerController: isAdmin,
   ProjectController: isAdmin,
+  OrganizationController: isAdmin,
 
 };

@@ -22,5 +22,13 @@ module.exports = {
     req.logout();
     req.session.destroy();
     res.status(200).send();
-  }
+  },
+
+  CheckExistLogin: async (req, res) => { // проверка на существования логина
+    let data = req.query;
+    if (await User.findOne({ login: data.login }))
+      res.ok({ LoginIsExist: true });
+    else
+      res.ok({ LoginIsExist: false })
+  },
 };

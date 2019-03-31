@@ -4,7 +4,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 
-import { apiSaveManager, apiCheckExistLogin } from '../../../../api/manager' // апи(общение с сервером)
+import { apiSaveManager } from '../../../../api/manager' // апи(общение с сервером)
+import { apiCheckExistLogin } from '../../../../api/user'
 
 import Input from '../../elements/Input' // контролл инпут(ввод текста)
 import FormHead from '../../elements/FormHead' // шапка модального окна(название и крестик)
@@ -179,7 +180,7 @@ class CreateManager extends React.Component {
                   </div>
                 </div>
                 <div className="image-right-col">
-                  <img src={imagePreviewUrl} className="image" onClick={() => document.getElementById('file-input').click()}/>
+                  <img src={imagePreviewUrl} className="image" onClick={() => document.getElementById('file-input').click()} />
                   <Button onClick={() => document.getElementById('file-input').click()} value="Выбрать фото" />
                   <input
                     type="file"

@@ -58,7 +58,7 @@ class ProjectList extends React.Component {
           >
             <ProjectListItem
               projectId={ob.id}
-              organization={ob.organization}
+              organization={ob.organization ? ob.organization.name : ''}
               projectName={ob.projectName}
               manager={ob.manager ? (ob.manager.surname + ' ' + ob.manager.name + ' ' + ob.manager.patronymic) : ''}
               addres={ob.addres}

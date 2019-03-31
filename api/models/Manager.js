@@ -32,7 +32,7 @@ module.exports = {
   },
   TestCreateManager: async () => {
     var user = await User.create({
-      login: 'Test',
+      login: 'TestAdmin',
       password: await bcrypt.hash('P@ssw0rd', 10),
       role: 'admin'
     }).fetch();
