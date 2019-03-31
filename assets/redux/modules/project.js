@@ -3,7 +3,8 @@ const module = 'project'
 export const FETCH_SET_CREATE_PROJECT_FIELD_VALUE = `${module}/FETCH_SET_CREATE_PROJECT_FIELD_VALUE`
 export const FETCH_SET_CREATE_PROJECT_FIELD_VALUE_ERROR = `${module}/FETCH_SET_CREATE_PROJECT_FIELD_VALUE_ERROR`
 export const FETCH_SET_CREATE_PROJECT_FIELD_VALUE_NULL = `${module}/FETCH_SET_CREATE_PROJECT_FIELD_VALUE_NULL`
-export const FETCH_CREATE_PROJECT = `${module}/FETCH_CREATE_PROJECT`
+export const FETCH_GET_PROJECT_LIST = `${module}/FETCH_GET_PROJECT_LIST`
+export const FETCH_GET_PROJECT_LIST_SUCCESS = `${module}/FETCH_GET_PROJECT_LIST_SUCCESS`
 
 const defaultState = {
   createProjectFieldsValue: {
@@ -11,7 +12,8 @@ const defaultState = {
     constructionWork: [],
     specialEngineeringSystems: [],
   },
-  createProjectFieldsValueError: {}
+  createProjectFieldsValueError: {},
+  projectList: [],
 }
 
 export default function reducer(projectState = defaultState, action = {}) {
@@ -29,14 +31,14 @@ export default function reducer(projectState = defaultState, action = {}) {
           [payload.name]: false,
         }
       }
-      case FETCH_SET_CREATE_PROJECT_FIELD_VALUE_ERROR: {
-        return {
-          ...projectState,
-          createProjectFieldsValueError: {
-            ...payload
-          }
+    case FETCH_SET_CREATE_PROJECT_FIELD_VALUE_ERROR: {
+      return {
+        ...projectState,
+        createProjectFieldsValueError: {
+          ...payload
         }
       }
+    }
     case FETCH_SET_CREATE_PROJECT_FIELD_VALUE:
       return {
         ...projectState,
@@ -45,6 +47,16 @@ export default function reducer(projectState = defaultState, action = {}) {
           constructionWork: [],
           specialEngineeringSystems: [],
         },
+      }
+    case FETCH_GET_PROJECT_LIST:
+      return {
+        ...projectState,
+        projectList: [],
+      }
+    case FETCH_GET_PROJECT_LIST_SUCCESS:
+      return {
+        ...projectState,
+        projectList: payload,
       }
     default:
       return projectState;
@@ -62,6 +74,11 @@ export const fetchSetCreateProjectFieldValueError = data => ({
 export const fetchSetCreateProjectFieldValueNull = data => ({
   type: FETCH_SET_CREATE_PROJECT_FIELD_VALUE_NULL,
 })
-export const fetchCreateProject = data => ({
-  type: FETCH_CREATE_PROJECT,
+export const fetchGetProjectList = data => ({
+  type: FETCH_GET_PROJECT_LIST,
+})
+
+export const fetchGetProjectListSuccess = data => ({
+  type: FETCH_GET_PROJECT_LIST_SUCCESS,
+  payload: data,
 })

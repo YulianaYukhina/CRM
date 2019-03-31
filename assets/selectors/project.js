@@ -7,3 +7,6 @@ export const getCreateProjectFields = state => {
 export const getCreateProjectFieldsErorrs = state => {
   return _.get(state, ['projects', 'createProjectFieldsValueError']);
 }
+
+export const getProjectList = state =>
+  _.get(state, ['projects', 'projectList'])

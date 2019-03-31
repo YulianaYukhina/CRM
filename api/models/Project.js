@@ -8,6 +8,10 @@ module.exports = {
       type: 'string',
       //required: true
     },
+    addres: {
+      type: 'string',
+      //required: true
+    },
     manager: {
       model: 'manager'
     },

@@ -5,21 +5,16 @@
 import React from 'react'
 
 import NavBar from '../../_common/NavBar'
-import ProjectListItem from '../../_common/projectListItem'
+import ProjectList from '../../_common/projectList'
 
 
 class AdminCabinet extends React.Component {
   render() {
     return (
       <div>
-        <NavBar/>
-        <div style={{marginTop: "20px"}}>
-        <ProjectListItem />
-        <ProjectListItem />
-        <ProjectListItem />
-        <ProjectListItem />
-        <ProjectListItem />
-        <ProjectListItem />
+        <NavBar />
+        <div style={{ marginTop: "20px" }}>
+          <ProjectList />
         </div>
       </div>
     )

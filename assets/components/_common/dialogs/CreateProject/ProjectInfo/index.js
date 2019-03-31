@@ -84,7 +84,7 @@ class ProjectInfo extends React.Component {
           <div>
             <div className="address-text">
               <textarea
-                id="address"
+                id="addres"
                 placeholder="Адрес, например: г. Москва ул. Чехода д. 23"
                 onChange={this.changeInputHandler}
                 tabIndex="10"
@@ -92,7 +92,7 @@ class ProjectInfo extends React.Component {
               />
             </div>
             {
-              errors.address
+              errors.addres
               && (<div className="error-message">Введите адрес!</div>)
             }
           </div>

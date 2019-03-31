@@ -1,22 +1,17 @@
 import { all, takeEvery, call, put, select, take } from 'redux-saga/effects'
 
-import { getCreateProjectFields } from '../../selectors/project'
+import { apiGetProjectList } from '../../api/project'
 
-import { apiSaveProject } from '../../api/project'
-
-import { FETCH_CREATE_PROJECT } from '../modules/project'
-
-
+import { FETCH_GET_PROJECT_LIST, fetchGetProjectListSuccess } from '../modules/project'
 
 function* studentList() {
   yield all([
-      takeEvery(FETCH_CREATE_PROJECT, function* () {
+      takeEvery(FETCH_GET_PROJECT_LIST, function* () {
           try {
-              var fields = yield select(getCreateProjectFields);
-              yield call(apiSaveProject, fields);
-              yield console.log('sqve new project success!')
+              var projectList = yield call(apiGetProjectList);
+              yield put(fetchGetProjectListSuccess(projectList));
           } catch(e){
-              yield console.log('save new project error!')
+              yield console.log('get project list error!')
           }
       }),
   ])

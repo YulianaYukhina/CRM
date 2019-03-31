@@ -11,19 +11,13 @@ import { FlexBox, FlexRow, ModalContainer } from '../../elements/StyleDialogs/st
 import ModalDialog from '../../ModalDialog'
 import { Container } from './styled'
 
-<<<<<<< HEAD
-import ProjectInfo from './ProjectInfo' // 1 вкладка(инфа о проекте)
-import ContactDetails from './ContactDetails' // 2 вкладка (контактная инфа)
-import WorkPerformed from './WorkPerformed' // 3 вкладка(работы)
-=======
-import { fetchSetCreateProjectFieldValueNull, fetchSetCreateProjectFieldValueError } from '../../../../redux/modules/project'
+import { fetchSetCreateProjectFieldValueNull, fetchSetCreateProjectFieldValueError, fetchGetProjectList } from '../../../../redux/modules/project'
 import { getCreateProjectFields } from '../../../../selectors/project'
 import { apiSaveProject } from '../../../../api/project'
 
 import ProjectInfo from './ProjectInfo'
 import ContactDetails from './ContactDetails'
 import WorkPerformed from './WorkPerformed'
->>>>>>> f5f014380bef7b1f894ba7f03da4b73d52e4e672
 
 class CreateProject extends React.Component {
   state = {
@@ -35,6 +29,7 @@ class CreateProject extends React.Component {
       apiSaveProject(this.props.fields)
         .then(res => {
           this.props.fetchSetCreateProjectFieldValueNull();
+          this.props.fetchGetProjectList();
           this.props.onHide()
         })
     }
@@ -109,4 +104,10 @@ const mapStateToProps = state => ({
   fields: getCreateProjectFields(state),
 })
 
-export default connect(mapStateToProps, { fetchSetCreateProjectFieldValueNull, fetchSetCreateProjectFieldValueError })(CreateProject)
+const fetch = {
+  fetchSetCreateProjectFieldValueNull,
+  fetchSetCreateProjectFieldValueError,
+  fetchGetProjectList,
+}
+
+export default connect(mapStateToProps, fetch)(CreateProject)
