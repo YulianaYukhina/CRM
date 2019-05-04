@@ -52,11 +52,11 @@ export default function reducer(projectState = defaultState, action = {}) {
           specialEngineeringSystems: [],
         },
       }
-    case FETCH_GET_PROJECT_LIST:
-      return {
-        ...projectState,
-        projectList: [],
-      }
+    // case FETCH_GET_PROJECT_LIST:
+    //   return {
+    //     ...projectState,
+    //     projectList: [],
+    //   }
     case FETCH_GET_PROJECT_LIST_SUCCESS:
       return {
         ...projectState,
@@ -85,6 +85,7 @@ export const fetchSetCreateProjectFieldValueNull = data => ({
 })
 
 export const fetchGetProjectList = data => ({
+  payload: data,
   type: FETCH_GET_PROJECT_LIST,
 })
 

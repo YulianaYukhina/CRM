@@ -25,9 +25,7 @@ class ProjectList extends React.Component {
     var val = event.target.value;
     clearTimeout(this.state.searchTimer);
     var timer = setTimeout((search) => {
-      //TODO найти проекты
-      if(search)
-        console.log(search);
+      this.props.fetchGetProjectList(search);
     }, 800, val);
     this.setState({ search: val, searchTimer: timer });
   }
@@ -104,6 +102,10 @@ class ProjectList extends React.Component {
             />
           </ContextMenuTrigger>)
         }))}
+
+        {((!projects || projects.length === 0) && (
+          <div>Проектов нет</div>
+        ))}
 
         {this.state.editProjectOpenWindow && (
           <CreateProject id={this.state.currentProjectId} show={this.state.editProjectOpenWindow} onHide={this.toggleOpenWindowEditProject} />

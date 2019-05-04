@@ -31,11 +31,22 @@ module.exports = {
   },
 
   GetProjectList: async (req, res) => {
-    var projectList = await Project.find();
+    let search = req.query.search;
+    var projectList;
+    if (search) {
+      projectList = await Project.find({
+        or: [
+          { projectName: { contains: search } },
+          { addres: { contains: search } }
+        ]
+      });
+    } else {
+      projectList = await Project.find();
+    }
     if (projectList) {
       for (var i = 0; i < projectList.length; i++) {
         projectList[i].manager = await Manager.findOne({ id: projectList[i].manager });
-        projectList[i].organization = await Organization.findOne({id: projectList[i].organization});
+        projectList[i].organization = await Organization.findOne({ id: projectList[i].organization });
       }
     }
     res.ok(projectList);

@@ -8,8 +8,8 @@ const GET_PROJECT_BY_ID_URL = '/project/getProject'
 export const apiSaveProject = data =>
   axios.post(SAVE_PROJECT_URL, data)
 
-export const apiGetProjectList = () =>
-  axios.get(GET_PROJECT_LIST_URL).then(res => res.data);
+export const apiGetProjectList = (search) =>
+  axios.get(GET_PROJECT_LIST_URL, {params: {search: search || ''}}).then(res => res.data);
 
 export const apiGetProjectById = id =>
   axios.get(GET_PROJECT_BY_ID_URL, {params: {id}}).then(res => res.data);
