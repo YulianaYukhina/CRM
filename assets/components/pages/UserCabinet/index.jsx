@@ -2,28 +2,16 @@
 // основная страница пользователя
 import React from 'react'
 import NavBar from '../../_common/NavBar'
-import axios from 'axios'
-
+import ProjectList from '../../_common/projectList'
 
 class UserCabinet extends React.Component {
-  user = () => {
-    axios.get('/testUser');
-  }
-  admin = () => {
-    axios.get('/testAdmin');
-  }
-  test = () => {
-    axios.get('/testTest');
-  }
   render() {
     return (
       <div>
-        <NavBar/>
-          Страница пользователя
-          <button onClick={this.user}>user</button>
-          <button onClick={this.admin}>admin</button>
-
-          <button onClick={this.test}>test</button>
+        <NavBar />
+        <div style={{ marginTop: "20px" }}>
+          <ProjectList />
+        </div>
       </div>
     )
   }

@@ -12,6 +12,8 @@ module.exports = {
       }
       // Время жизни токена - 3 дня
       let token = jwt.sign(user, sails.config.custom.secret, { expiresIn: 60 * 60 * 24 * 3});
+      req.session.userId = user.id;
+      req.session.userRole = user.role;
       res.ok({
         token: token,
         role: user.role,

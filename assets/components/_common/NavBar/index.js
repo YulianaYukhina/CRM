@@ -27,7 +27,6 @@ class NavBar extends React.Component {
     }
   }
   render() {
-
     const isAdmin = localStorage.getItem('role') == 'admin'
     if (isAdmin)
       return (
@@ -56,12 +55,7 @@ class NavBar extends React.Component {
         <Container>
           <Navbar bg="light" expand="lg" onSelect={this.click}>
             <Nav className="mr-auto">
-              <Nav.Link eventKey='Home'>Home</Nav.Link>
               <Nav.Link eventKey={'Exit'} style={{ position: 'absolute', right: '20px' }}>Exit</Nav.Link>
-              <NavDropdown title="Dropdown">
-                <NavDropdown.Item eventKey="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item eventKey="#action/3.2">Another action</NavDropdown.Item>
-              </NavDropdown>
             </Nav>
           </Navbar>
         </Container>

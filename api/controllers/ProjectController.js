@@ -31,17 +31,17 @@ module.exports = {
   },
 
   GetProjectList: async (req, res) => {
-    let search = req.query.search;
+    let search = req.query.search || '';
     var projectList;
-    if (search) {
-      projectList = await Project.find({
-        or: [
-          { projectName: { contains: search } },
-          { addres: { contains: search } }
-        ]
-      });
-    } else {
-      projectList = await Project.find();
+    projectList = await Project.find({
+      or: [
+        { projectName: { contains: search } },
+        { addres: { contains: search } },
+      ]
+    });
+    if (projectList && req.user && req.user.role === 'user') {
+      var organization = await Organization.findOne({ user: req.user.id });
+      projectList = projectList.filter(ob => ob.organization == organization.id);
     }
     if (projectList) {
       for (var i = 0; i < projectList.length; i++) {
@@ -49,6 +49,7 @@ module.exports = {
         projectList[i].organization = await Organization.findOne({ id: projectList[i].organization });
       }
     }
+
     res.ok(projectList);
   },
 

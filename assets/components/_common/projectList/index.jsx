@@ -73,6 +73,7 @@ class ProjectList extends React.Component {
     this.props.fetchGetProjectList();
   }
   render() {
+    const isAdmin = localStorage.getItem('role') == 'admin'
     var { projects } = this.props;
     return (
       <Container>
@@ -107,7 +108,7 @@ class ProjectList extends React.Component {
           <div>Проектов нет</div>
         ))}
 
-        {this.state.editProjectOpenWindow && (
+        {this.state.editProjectOpenWindow && isAdmin && (
           <CreateProject id={this.state.currentProjectId} show={this.state.editProjectOpenWindow} onHide={this.toggleOpenWindowEditProject} />
         )}
 
@@ -117,8 +118,8 @@ class ProjectList extends React.Component {
 
         <ContextMenu id="projectListMenu">
           <MenuItem onClick={this.menuClick} data={{ type: 'viewProject' }}>Информация о проекте</MenuItem>
-          <MenuItem onClick={this.menuClick} data={{ type: 'editProject' }}>Редактировать проект</MenuItem>
-          <MenuItem onClick={this.menuClick} data={{ type: 'deleteProject' }}>Удалить проект</MenuItem>
+          {isAdmin && (<MenuItem onClick={this.menuClick} data={{ type: 'editProject' }}>Редактировать проект</MenuItem>)}
+          {isAdmin && (<MenuItem onClick={this.menuClick} data={{ type: 'deleteProject' }}>Удалить проект</MenuItem>)}
         </ContextMenu>
       </Container>
     )
