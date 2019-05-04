@@ -32,6 +32,8 @@ class CreateProject extends React.Component {
   componentDidMount() {
     if (this.props.id) {
       this.props.fetchGetProjectByID(this.props.id);
+    }else{
+      this.props.fetchSetCreateProjectFieldValueNull();
     }
   }
 

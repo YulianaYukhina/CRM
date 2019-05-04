@@ -47,7 +47,7 @@ class WorkPerformed extends React.Component {
               valueKey="val"
               labelKey="text"
               numberDisplayed="2"
-              placeholder=""
+              placeholder="Дизайн"
             />
             {
               this.state.error.projectName
@@ -65,7 +65,7 @@ class WorkPerformed extends React.Component {
               valueKey="val"
               labelKey="text"
               numberDisplayed="2"
-              placeholder=""
+              placeholder="Строительные работы"
             />
             {
               this.state.error.projectName
@@ -83,7 +83,7 @@ class WorkPerformed extends React.Component {
               valueKey="val"
               labelKey="text"
               numberDisplayed="2"
-              placeholder=""
+              placeholder="Специальные инженерные системы"
             />
             {
               this.state.error.projectName

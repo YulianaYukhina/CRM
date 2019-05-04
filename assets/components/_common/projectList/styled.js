@@ -1,5 +1,11 @@
 import styled from 'styled-components'
 
+export const SearchContainer = styled.div`
+  width: 40%;
+  min-width: 300px;
+  margin-bottom: 20px;
+`
+
 export const Container = styled.div`
   //width: 80vw;
   display: flex;

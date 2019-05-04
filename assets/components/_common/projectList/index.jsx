@@ -7,18 +7,41 @@ import { fetchGetProjectList, fetchDeleteProject } from '../../../redux/modules/
 import { getProjectList } from '../../../selectors/project'
 
 import CreateProject from '../dialogs/CreateProject'
+import ViewProject from '../dialogs/ViewProject'
 import ProjectListItem from './projectListItem'
-import { Container } from './styled'
+import Input from '../elements/Input'
+import { Container, SearchContainer } from './styled'
 
 class ProjectList extends React.Component {
   state = {
     editProjectOpenWindow: false,
     currentProjectId: '',
+    viewProjectOpenWindow: false,
+    search: '',
+    searchTimer: 0,
   }
 
-  toggleOpenWindowProject = () =>{
+  changeInputHandler = event => {
+    var val = event.target.value;
+    clearTimeout(this.state.searchTimer);
+    var timer = setTimeout((search) => {
+      //TODO найти проекты
+      if(search)
+        console.log(search);
+    }, 800, val);
+    this.setState({ search: val, searchTimer: timer });
+  }
+
+  toggleOpenWindowEditProject = () => {
     let windowIsOpen = !this.state.editProjectOpenWindow;
-    this.setState({editProjectOpenWindow: windowIsOpen});
+    this.setState({ editProjectOpenWindow: windowIsOpen });
+  }
+  toggleOpenWindowViewProject = (id) => {
+    if (id) {
+      this.setState({ currentProjectId: id });
+    }
+    let windowIsOpen = !this.state.viewProjectOpenWindow;
+    this.setState({ viewProjectOpenWindow: windowIsOpen });
   }
 
   collect = props => ({
@@ -35,8 +58,14 @@ class ProjectList extends React.Component {
         }
       case 'editProject':
         {
-          this.setState({currentProjectId: data.id})
-          this.toggleOpenWindowProject()
+          this.setState({ currentProjectId: data.id })
+          this.toggleOpenWindowEditProject()
+          break;
+        }
+      case 'viewProject':
+        {
+          this.setState({ currentProjectId: data.id })
+          this.toggleOpenWindowViewProject()
           break;
         }
       default:
@@ -49,6 +78,15 @@ class ProjectList extends React.Component {
     var { projects } = this.props;
     return (
       <Container>
+        <SearchContainer>
+          <Input id="search"
+            type="text"
+            isRequired={false}
+            placeholder="Поиск"
+            value={this.state.search}
+            onChange={this.changeInputHandler}
+          />
+        </SearchContainer>
         {(projects && projects.map(ob => {
           return (<ContextMenuTrigger
             id="projectListMenu"
@@ -62,17 +100,23 @@ class ProjectList extends React.Component {
               projectName={ob.projectName}
               manager={ob.manager ? (ob.manager.surname + ' ' + ob.manager.name + ' ' + ob.manager.patronymic) : ''}
               addres={ob.addres}
+              onClick={() => this.toggleOpenWindowViewProject(ob.id)}
             />
           </ContextMenuTrigger>)
         }))}
 
         {this.state.editProjectOpenWindow && (
-          <CreateProject id={this.state.currentProjectId} show={this.state.editProjectOpenWindow} onHide={this.toggleOpenWindowProject} />
+          <CreateProject id={this.state.currentProjectId} show={this.state.editProjectOpenWindow} onHide={this.toggleOpenWindowEditProject} />
+        )}
+
+        {this.state.viewProjectOpenWindow && (
+          <ViewProject id={this.state.currentProjectId} show={this.state.viewProjectOpenWindow} onHide={this.toggleOpenWindowViewProject} />
         )}
 
         <ContextMenu id="projectListMenu">
-          <MenuItem onClick={this.menuClick} data={{ type: 'deleteProject' }}>Удалить проект</MenuItem>
+          <MenuItem onClick={this.menuClick} data={{ type: 'viewProject' }}>Информация о проекте</MenuItem>
           <MenuItem onClick={this.menuClick} data={{ type: 'editProject' }}>Редактировать проект</MenuItem>
+          <MenuItem onClick={this.menuClick} data={{ type: 'deleteProject' }}>Удалить проект</MenuItem>
         </ContextMenu>
       </Container>
     )

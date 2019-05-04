@@ -8,7 +8,7 @@ class ProjectListItem extends React.Component {
   render() {
     var { projectId, organization, projectName, manager, addres } = this.props;
     return (
-      <Container>
+      <Container onClick={this.props.onClick}>
         <div>
           <Organization>{organization}</Organization>
           <Name>{projectName}</Name>
@@ -26,5 +26,6 @@ ProjectListItem.Props = {
   projectName: PropTypes.string,
   manager: PropTypes.string,
   addres: PropTypes.string,
+  onClick: PropTypes.func,
 }
 export default ProjectListItem
