@@ -33,22 +33,29 @@ module.exports = {
   GetProjectList: async (req, res) => {
     let search = req.query.search || '';
     var projectList;
-    projectList = await Project.find({
-      or: [
-        { projectName: { contains: search } },
-        { addres: { contains: search } },
-      ]
-    });
+    projectList = await Project.find()
+      .populate('manager')
+      // .where({
+      //   or: [
+      //     { projectName: { contains: search } },
+      //     { addres: { contains: search } },
+      //     { manager: { whose: {surname: { contains: search } } } }
+      //   ]
+      // })
+      .populate('organization');
+    projectList = projectList.filter(ob => ob.projectName.toLowerCase().indexOf(search) != -1
+      || ob.addres.toLowerCase().indexOf(search) != -1
+      || ob.manager.surname.toLowerCase().indexOf(search) != -1)
     if (projectList && req.user && req.user.role === 'user') {
-      var organization = await Organization.findOne({ user: req.user.id });
-      projectList = projectList.filter(ob => ob.organization == organization.id);
+      //var organization = await Organization.findOne({ user: req.user.id });
+      projectList = projectList.filter(ob => ob.organization.user == req.user.id);
     }
-    if (projectList) {
-      for (var i = 0; i < projectList.length; i++) {
-        projectList[i].manager = await Manager.findOne({ id: projectList[i].manager });
-        projectList[i].organization = await Organization.findOne({ id: projectList[i].organization });
-      }
-    }
+    // if (projectList) {
+    //   for (var i = 0; i < projectList.length; i++) {
+    //     projectList[i].manager = await Manager.findOne({ id: projectList[i].manager });
+    //     projectList[i].organization = await Organization.findOne({ id: projectList[i].organization });
+    //   }
+    // }
 
     res.ok(projectList);
   },
