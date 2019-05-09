@@ -6,8 +6,12 @@ import history from '../history'
 const login_url = '/user/login'
 const logout_url = '/user/logout'
 const test_url = '/testLogin'
+const get_user = '/user/getUser'
 
 const CHECK_EXIST_LOGIN = '/user/checkExistLogin'
+
+export const apiGetUser = () =>
+  axios.get(get_user);
 
 export const apiCheckExistLogin = login =>
   axios.get(CHECK_EXIST_LOGIN, { params: { login: login } })

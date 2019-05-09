@@ -23,6 +23,7 @@ module.exports.routes = {
   'GET /testTest': 'Test.TestTest',
   'GET /testUser': 'Test.TestUser',
   'GET /testAdmin': 'Test.TestAdmin',
+  'GET /user/getUser': 'Auth.GetUser',
   'POST /user/login': 'Auth.Login',
   'GET /user/logout': 'Auth.Logout',
   'GET /user/checkExistLogin': 'Auth.CheckExistLogin',
@@ -34,6 +35,7 @@ module.exports.routes = {
   'GET /project/getProjectList': 'Project.GetProjectList',
   'GET /project/deleteProject': 'Project.DeleteProject',
   'GET /project/getProject': 'Project.GetProject',
+  'POST /project/addComment': 'Project.AddComment',
   'GET /*': {
     controller: 'AppController',
     action: 'index',

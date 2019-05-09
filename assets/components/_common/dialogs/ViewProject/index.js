@@ -8,13 +8,12 @@ import { ModalContainer } from '../../elements/StyleDialogs/styled'
 import ModalDialog from '../../ModalDialog'
 import { Container } from './styled'
 
-import {
-  fetchGetProjectByID,
-} from '../../../../redux/modules/project'
+import { fetchGetProjectByID } from '../../../../redux/modules/project'
 import { getCreateProjectFields } from '../../../../selectors/project'
 
 import ProjectInfo from './ProjectInfo'
 import WorkPerformed from './WorkPerformed'
+import Chat from './Chat'
 
 class ViewProject extends React.Component {
   state = {
@@ -45,6 +44,9 @@ class ViewProject extends React.Component {
                 </Tab>
                 <Tab eventKey="WorkPerformed" title="Выполняемые работы">
                   <WorkPerformed />
+                </Tab>
+                <Tab eventKey="Chat" title="Чат">
+                  <Chat />
                 </Tab>
               </Tabs>
             </div>

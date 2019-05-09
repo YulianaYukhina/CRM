@@ -26,6 +26,9 @@ module.exports.policies = {
     TestAdmin: isAdmin,
     TestTest: 'hasToken'
   },
+  AuthController: {
+    GetUser: 'hasToken'
+  },
   ManagerController:{
     '*' : isAdmin,
     GetManagersList : 'hasToken'
@@ -33,7 +36,8 @@ module.exports.policies = {
   ProjectController: {
     '*' : isAdmin,
     GetProjectList: 'hasToken',
-    GetProject: 'hasToken'
+    GetProject: 'hasToken',
+    AddComment: 'hasToken'
   },
   OrganizationController: {
     '*' : isAdmin,

@@ -46,5 +46,9 @@ module.exports = {
       type: 'json',
       columnType: 'array'
     },
+    comments: {
+      collection: 'ProjectComment',
+      via: 'project',
+    },
   }
 };

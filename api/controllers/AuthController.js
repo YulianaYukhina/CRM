@@ -33,4 +33,16 @@ module.exports = {
     else
       res.ok({ LoginIsExist: false })
   },
+
+  GetUser: async (req, res) => {
+    if(req.user.role === 'user'){
+      var organization = await Organization.findOne({user: req.user.id});
+      res.ok({userId: organization.user, userName: organization.name});
+    }
+    if(req.user.role === 'admin'){
+      var manager = await Manager.findOne({user: req.user.id});
+      res.ok({userId: manager.user, userName: `${manager.surname} ${manager.name.charAt(0)}. ${manager.patronymic.charAt(0)}.`});
+    }
+    res.badRequest('error')
+  }
 };
