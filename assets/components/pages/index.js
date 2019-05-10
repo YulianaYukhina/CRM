@@ -12,6 +12,7 @@ import LoginPage from './LoginPage'
 import Error from './NotFound/NotFound'
 import AdminCabinet from './AdminCabinet'
 import UserCabinet from './UserCabinet'
+import MainAdminCabinet from './MainAdminCabinet'
 
 import { Container } from './styled'
 
@@ -24,6 +25,7 @@ const Pages = () => {
           <Redirect exact from="/" to="/Cabinet" />
           <Route path="/login" component={LoginPage} />
           <PrivateRoute path="/Cabinet" component={isAdmin ? AdminCabinet : UserCabinet} />
+          <PrivateRoute path="/MainAdminCabinet" component={MainAdminCabinet} />
           <Route component={Error}/>
         </Switch>
       </Container>

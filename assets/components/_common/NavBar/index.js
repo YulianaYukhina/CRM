@@ -37,10 +37,6 @@ class NavBar extends React.Component {
               {this.state.openModalWindow.CreateOrganization && (
                 <CreateOrganization show={this.state.openModalWindow.CreateOrganization} onHide={() => this.click('CreateOrganization')} />
               )}
-              <Nav.Link eventKey='CreateManager'>Добавить менеджера</Nav.Link>
-              {this.state.openModalWindow.CreateManager && (
-                <CreateManager show={this.state.openModalWindow.CreateManager} onHide={() => this.click('CreateManager')} />
-              )}
               <Nav.Link eventKey='CreateProject'>Добавить проект</Nav.Link>
               {this.state.openModalWindow.CreateProject && (
                 <CreateProject show={this.state.openModalWindow.CreateProject} onHide={() => this.click('CreateProject')} />
