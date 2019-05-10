@@ -46,8 +46,13 @@ class ViewProject extends React.Component {
                   <WorkPerformed />
                 </Tab>
                 <Tab eventKey="Chat" title="Чат">
-                  <Chat />
+                  <Chat commentType="userComment" />
                 </Tab>
+                {localStorage.getItem('role') == 'admin' &&
+                  (<Tab eventKey="AdminChat" title="Чат для менеджеров">
+                    <Chat commentType="adminComment" />
+                  </Tab>)
+                }
               </Tabs>
             </div>
           </Container>

@@ -62,17 +62,21 @@ module.exports = {
     let id = req.query.id;
     let project = await Project.findOne({ id });
     let comments = await ProjectComment.find({ project: project.id });
+    if(req.user && req.user.role === 'user'){
+      comments = comments.filter(ob => ob.type == 'userComment');
+    }
     project.comments = comments;
     res.ok(project);
   },
 
   AddComment: async (req, res) => {
-    let { name, message, projectId } = req.body;
+    let { name, message, projectId, type } = req.body;
     await ProjectComment.create({
       userName: name,
       userId: req.user.id,
       project: projectId,
       message: message,
+      type: type
     })
     res.ok();
   }

@@ -12,7 +12,7 @@ class Comment extends React.Component {
           {name}:
         </div>
         <div>
-          "{message}"
+          {message}
         </div>
       </Container>
     );

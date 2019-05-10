@@ -16,14 +16,6 @@ import { getCreateProjectFields } from '../../../../../selectors/project'
 class Chat extends React.Component {
 
   state = {
-    comments: [
-      { name: 'Petya', message: 'Hello world!' },
-      { name: 'Petya', message: 'Hello hell!' },
-      { name: 'Test', message: 'Test proewr!', isYour: true },
-      { name: 'Petya', message: 'Hello w11orld!' },
-      { name: 'Test', message: 'Hello wo22rld!', isYour: true },
-      { name: 'Petya', message: 'Hello 333333333world!' },
-    ],
     message: '',
     name: '',
   }
@@ -33,6 +25,7 @@ class Chat extends React.Component {
       name: this.state.name,
       message: this.state.message,
       projectId: this.props.fields.id,
+      type: this.props.commentType
     })
     this.setState({message: ''});
     this.props.fetchGetProjectByID(this.props.fields.id);
@@ -51,6 +44,7 @@ class Chat extends React.Component {
   render() {
     var { message, userId } = this.state;
     var comments = this.props.fields.comments || [];
+    comments = comments.filter(ob => ob.type == this.props.commentType)
     return (
       <Container>
         <CommentsContainer>

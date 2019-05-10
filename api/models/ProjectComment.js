@@ -1,6 +1,6 @@
 module.exports = {
   attributes: {
-    userName: { // название проекта
+    userName: {
       type: 'string',
       required: true
     },
@@ -16,5 +16,10 @@ module.exports = {
       type: 'string',
       required: true
     },
+    // Типо комментария adminComment - коментарии которые видят только админы, userComment - коментарии которые видят и админы и пользователи
+    type: {
+      type: 'string',
+      defaultsTo: 'userComment'
+    }
   }
 };
