@@ -19,10 +19,6 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  '/test': 'Test.Test',
-  'GET /testTest': 'Test.TestTest',
-  'GET /testUser': 'Test.TestUser',
-  'GET /testAdmin': 'Test.TestAdmin',
   'GET /user/getUser': 'Auth.GetUser',
   'POST /user/login': 'Auth.Login',
   'GET /user/logout': 'Auth.Logout',

@@ -10,7 +10,7 @@ import CreateProject from '../dialogs/CreateProject'
 import ViewProject from '../dialogs/ViewProject'
 import ProjectListItem from './projectListItem'
 import Input from '../elements/Input'
-import { Container, SearchContainer } from './styled'
+import { Container, SearchContainer, OnlyMyProjects } from './styled'
 
 class ProjectList extends React.Component {
   state = {
@@ -19,14 +19,15 @@ class ProjectList extends React.Component {
     viewProjectOpenWindow: false,
     search: '',
     searchTimer: 0,
+    onlyMyProjects: false,
   }
 
   changeInputHandler = event => {
     var val = event.target.value;
     clearTimeout(this.state.searchTimer);
-    var timer = setTimeout((search) => {
-      this.props.fetchGetProjectList(search);
-    }, 800, val);
+    var timer = setTimeout((search, onlyMyProjects) => {
+      this.props.fetchGetProjectList({ search, onlyMyProjects });
+    }, 800, val, this.state.onlyMyProjects);
     this.setState({ search: val, searchTimer: timer });
   }
 
@@ -85,6 +86,20 @@ class ProjectList extends React.Component {
             value={this.state.search}
             onChange={this.changeInputHandler}
           />
+          { localStorage.getItem('role') == 'admin' &&
+          (<OnlyMyProjects>
+            <input id="onlyMyProjects"
+              type="checkbox"
+              valye={this.state.onlyMyProjects}
+              onChange={() => {
+                this.setState(preventState => {
+                this.props.fetchGetProjectList({ search: this.state.search, onlyMyProjects: !preventState.onlyMyProjects })
+                  return {onlyMyProjects: !preventState.onlyMyProjects} });
+              }}
+            />
+            <label htmlFor="onlyMyProjects">Только мои проекты</label>
+          </OnlyMyProjects>)
+          }
         </SearchContainer>
         {(projects && projects.map(ob => {
           return (<ContextMenuTrigger

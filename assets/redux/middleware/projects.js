@@ -15,7 +15,7 @@ function* studentList() {
   yield all([
     takeEvery(FETCH_GET_PROJECT_LIST, function* (data) {
       try {
-        var projectList = yield call(apiGetProjectList, data.payload || '');
+        var projectList = yield call(apiGetProjectList, data.payload.search, data.payload.onlyMyProjects);
         yield put(fetchGetProjectListSuccess(projectList));
       } catch (e) {
         yield console.log('get project list error!')

@@ -12,8 +12,8 @@ export const apiSaveProject = data =>
 export const apiAddComment = data =>
   axios.post(GET_ADD_COMMENT_URL, data)
 
-export const apiGetProjectList = (search) =>
-  axios.get(GET_PROJECT_LIST_URL, { params: { search: search || '' } }).then(res => res.data);
+export const apiGetProjectList = (search, onlyMyProjects) =>
+  axios.get(GET_PROJECT_LIST_URL, { params: { search: search || '', onlyMyProjects: onlyMyProjects || false } }).then(res => res.data);
 
 export const apiGetProjectById = id =>
   axios.get(GET_PROJECT_BY_ID_URL, { params: { id } }).then(res => res.data);

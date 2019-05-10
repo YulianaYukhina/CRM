@@ -21,11 +21,6 @@ module.exports.policies = {
   ***************************************************************************/
 
   '*': true,
-  TestController: {
-    TestUser: isUser,
-    TestAdmin: isAdmin,
-    TestTest: 'hasToken'
-  },
   AuthController: {
     GetUser: 'hasToken'
   },

@@ -32,6 +32,7 @@ module.exports = {
 
   GetProjectList: async (req, res) => {
     let search = req.query.search || '';
+    let onlyMyProject = req.query.onlyMyProjects == 'true';
     var projectList;
     projectList = await Project.find()
       .populate('manager')
@@ -39,8 +40,13 @@ module.exports = {
     projectList = projectList.filter(ob => ob.projectName.toLowerCase().indexOf(search) != -1
       || ob.addres.toLowerCase().indexOf(search) != -1
       || ob.manager.surname.toLowerCase().indexOf(search) != -1)
+
     if (projectList && req.user && req.user.role === 'user') {
       projectList = projectList.filter(ob => ob.organization.user == req.user.id);
+    }
+
+    if (projectList && req.user && req.user.role === 'admin' && onlyMyProject) {
+      projectList = projectList.filter(ob => ob.manager.user == req.user.id);
     }
 
     res.ok(projectList);
@@ -55,13 +61,13 @@ module.exports = {
   GetProject: async (req, res) => {
     let id = req.query.id;
     let project = await Project.findOne({ id });
-    let comments = await ProjectComment.find({project: project.id});
+    let comments = await ProjectComment.find({ project: project.id });
     project.comments = comments;
     res.ok(project);
   },
 
   AddComment: async (req, res) => {
-    let {name, message, projectId} = req.body;
+    let { name, message, projectId } = req.body;
     await ProjectComment.create({
       userName: name,
       userId: req.user.id,

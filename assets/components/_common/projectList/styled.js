@@ -2,8 +2,18 @@ import styled from 'styled-components'
 
 export const SearchContainer = styled.div`
   width: 40%;
-  min-width: 300px;
+  min-width: 470px;
   margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+`
+
+export const OnlyMyProjects = styled.div`
+  margin-left: 20px;
+  width: 290px;
+  label {
+    margin-left: 5px;
+  }
 `
 
 export const Container = styled.div`

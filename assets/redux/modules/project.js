@@ -85,7 +85,7 @@ export const fetchSetCreateProjectFieldValueNull = data => ({
 })
 
 export const fetchGetProjectList = data => ({
-  payload: data,
+  payload: data || {},
   type: FETCH_GET_PROJECT_LIST,
 })
 
