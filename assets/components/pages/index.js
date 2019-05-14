@@ -17,15 +17,15 @@ import MainAdminCabinet from './MainAdminCabinet'
 import { Container } from './styled'
 
 const Pages = () => {
-  const isAdmin = localStorage.getItem('role') == 'admin'
+  const isAdmin = localStorage.getItem('role') == 'admin',
+  isMainAdmin = localStorage.getItem('role') == 'mainAdmin';
   return (
     <Router>
       <Container>
         <Switch>
           <Redirect exact from="/" to="/Cabinet" />
           <Route path="/login" component={LoginPage} />
-          <PrivateRoute path="/Cabinet" component={isAdmin ? AdminCabinet : UserCabinet} />
-          <PrivateRoute path="/MainAdminCabinet" component={MainAdminCabinet} />
+          <PrivateRoute path="/Cabinet" component={isAdmin ? AdminCabinet : isMainAdmin ? MainAdminCabinet : UserCabinet} />
           <Route component={Error}/>
         </Switch>
       </Container>

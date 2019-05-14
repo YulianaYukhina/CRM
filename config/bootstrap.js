@@ -8,6 +8,7 @@
  * For more information on seeding your app with fake data, check out:
  * https://sailsjs.com/config/bootstrap
  */
+const bcrypt = require('bcrypt');
 
 module.exports.bootstrap = async function() {
 
@@ -26,6 +27,23 @@ module.exports.bootstrap = async function() {
   }
   if (await Organization.count() === 0) {
     Organization.TestCreateOrganization();
+  }
+
+  if(User.findOne({role: 'mainAdmin'})){
+    var user = await User.create({
+      login: 'MainAdmin',
+      password: await bcrypt.hash('P@ssw0rd', 10),
+      role: 'mainAdmin'
+    }).fetch();
+
+    // await Manager.create({
+    //   name: 'Main',
+    //   surname: 'Admin',
+    //   patronymic: 'Adminovich',
+    //   phone: '8 800-355-35-35',
+    //   mail: 'admin@admin.com',
+    //   user: user.id
+    // }).fetch();
   }
   // ```
 
