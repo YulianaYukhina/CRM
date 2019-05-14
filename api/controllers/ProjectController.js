@@ -31,7 +31,7 @@ module.exports = {
   },
 
   GetProjectList: async (req, res) => {
-    let search = req.query.search || '';
+    let search = (req.query.search || '').toLowerCase();
     let onlyMyProject = req.query.onlyMyProjects == 'true';
     var projectList;
     projectList = await Project.find()
