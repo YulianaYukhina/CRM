@@ -79,14 +79,15 @@ describe('ProjectController.save', function () {
 
 });
 
+// Проверяем поиск по проектам
 describe('ProjectController.GetProjectList', function () {
 
     describe('#GetProjectList()', function () {
-        it('should projectList.lenght >= 1', function (done) {
+        it('should projectList.lenght > 0', function (done) {
             supertest(sails.hooks.http.app)
                 .get('/users/getProjectList')
                 .send({ search: 'testProjectName' })
-                .expect(200, res => res.projectList.lenght >= 1, done);
+                .expect(200, res => res.projectList.lenght > 0, done);
         });
 
         it('should projectList.lenght === 0', function (done) {
@@ -99,7 +100,8 @@ describe('ProjectController.GetProjectList', function () {
 
 });
 
-describe('AuthController.AddComment', function () {
+// проверяем добавление комментария
+describe('ProjectController.AddComment', function () {
     const manager = await Manager.finOne({ name: 'testManager' });
     const project = await project.finOne({ projectName: 'testProjectName' });
     describe('#AddComment()', function () {
@@ -113,6 +115,15 @@ describe('AuthController.AddComment', function () {
                     type: 'userComment'
                 })
                 .expect(200, done);
+        });
+    });
+
+    describe('#AddComment()', function () {
+        it('should get Ok', function (done) {
+            supertest(sails.hooks.http.app)
+                .post('/users/addComment')
+                .send({})
+                .expect(400, done);
         });
     });
 

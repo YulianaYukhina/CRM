@@ -1,0 +1,115 @@
+Протестируем метод rojectController.save, этот метод создает\обновляет данные проекта
+в качестве входных данных выступают поля проекта(здесь можно их перечислить, мне просто в падлу писать) для добавления в базу данных
+
+код тестов:
+describe('ProjectController.save', function () {
+    const manager = await Manager.finOne({ name: 'testManager' });
+    const organization = await Organization.findOne({ name: 'testOrganization' });
+    describe('#Save()', function () {
+        it('should get Ok', function (done) {
+            supertest(sails.hooks.http.app)
+                .post('/project/save')
+                .send({
+                    projectName: 'testProjectName',
+                    organization: organization.id,
+                    addres: 'test addres',
+                    manager: manager.id,
+                    documents: 'documentsReference',
+                    responsibleMiddleName: 'testMiddleName',
+                    responsibleFirstName: 'testFirstName',
+                    responsibleLastName: 'testLastName',
+                    responsiblePhone: '8-800-000-00-00',
+                    responsibleMail: 'test@test.test',
+                    design: [],
+                    constructionWork: [],
+                    specialEngineeringSystems: [],
+
+                })
+                .expect(200, done);
+        });
+
+        it('should get BadRecuest', function (done) {
+            supertest(sails.hooks.http.app)
+                .post('/project/save')
+                .send({})
+                .expect(400, done);
+        });
+    });
+
+});
+
+данный тест обрабатывает 2 сценария: 
+1)корректные поля для создания прокета, в таком случае вовзращается http ответ с кодом 200
+2) не корректный набор полей(не передан менеджер, организация, и рдугие поля помеченные как обязательные), в таком случае возвращается http твет с кодом 400
+
+
+
+
+Протестируем метод ProjectController.GetProjectList, этот возвращает список проекта удовлетворяющай критериям поиска
+в качестве входных данных выступают поисковый запрос,
+
+код теста
+// проверяем добавление комментария
+describe('ProjectController.AddComment', function () {
+    const manager = await Manager.finOne({ name: 'testManager' });
+    const project = await project.finOne({ projectName: 'testProjectName' });
+    describe('#AddComment()', function () {
+        it('should get Ok', function (done) {
+            supertest(sails.hooks.http.app)
+                .post('/users/addComment')
+                .send({
+                    name: 'testUser',
+                    message: 'testComment',
+                    projectId: project.id,
+                    type: 'userComment'
+                })
+                .expect(200, done);
+        });
+    });
+
+    describe('#AddComment()', function () {
+        it('should get Ok', function (done) {
+            supertest(sails.hooks.http.app)
+                .post('/users/addComment')
+                .send({})
+                .expect(400, done);
+        });
+    });
+
+});
+
+в данном тесте обрабатываются 2 сценария:
+1) проекты удовлетворяющие поисковому запросу есть в базе данных, в таком случае ожидаем http ответ с кодом 200 и размер массива projectList > 0 
+2) в базе данных нет проектов удовлетворяющих поисковому запросу , в таком случае ожидаем http ответ с кодом 200 и размер массива projectList = 0
+
+
+Протестируем метод ProjectController.AddComment, метод добавляет комментарий в базу данных
+в качестве входных данных выступают поля для создания комментария,
+
+код теста
+describe('ProjectController.GetProjectList', function () {
+
+    describe('#GetProjectList()', function () {
+        it('should projectList.lenght >= 1', function (done) {
+            supertest(sails.hooks.http.app)
+                .get('/users/getProjectList')
+                .send({ search: 'testProjectName' })
+                .expect(200, res => res.projectList.lenght >= 1, done);
+        });
+
+        it('should projectList.lenght === 0', function (done) {
+            supertest(sails.hooks.http.app)
+                .get('/users/getProjectList')
+                .send({ search: 'Поиск проекта которого нет в базе данных' })
+                .expect(200, res => res.projectList.lenght === 0, done);
+        });
+    });
+
+});
+
+
+данный тест обрабатывает 2 сценария: 
+1)корректные поля для создания прокета, в таком случае вовзращается http ответ с кодом 200
+2) не корректный набор полей(не передано имя пользователя, такст комментария, и другие поля помеченные как обязательные), в таком случае возвращается http твет с кодом 400
+
+

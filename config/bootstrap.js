@@ -29,7 +29,7 @@ module.exports.bootstrap = async function() {
     Organization.TestCreateOrganization();
   }
 
-  if(User.findOne({role: 'mainAdmin'})){
+  if(!User.findOne({role: 'mainAdmin'})){
     var user = await User.create({
       login: 'MainAdmin',
       password: await bcrypt.hash('P@ssw0rd', 10),
